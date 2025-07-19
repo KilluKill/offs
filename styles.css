@@ -1,0 +1,145 @@
+*,
+*::after,
+*::before{
+    padding: 0;
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "Pacifico";
+    src: url('fonts/Pacifico/Pacifico-Regular.woff2') format('woff2');
+    font-weight: auto;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "PressStart2P";
+    src: url('fonts/Pacifico/PressStart2P-Regular.ttf') format('truetype');
+    font-weight: auto;
+    font-style: normal;
+}
+
+
+
+
+body{
+    display: flex;
+    flex-direction: column;
+    /* flex-direction: column; */
+    font-family: "PressStart2P";
+    font-optical-sizing: auto;
+    font-size: normal;
+    line-height: calc(22px*1.3);
+    background: radial-gradient(circle, rgba(33, 55, 166, 1) 0%, rgba(110, 77, 82, 1) 83%);
+    min-height: calc(100vh - 120px);
+}
+
+.wrapper{
+    width: 900px;
+    height: 380px;
+    border: 2px solid red;
+    margin: 120px auto 80px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background: #2137a6;
+    background-image: url("images/photo1.jpg");
+    background-position: center;
+    /* background-repeat: repeat-y; */ 
+}
+
+.wrapper a{
+    color: black;
+    text-decoration: none;
+}
+
+.wrapper a:hover{
+    transform: scale(0.93);
+    transition: 0.15s;
+}
+
+.btn{
+    color: white;
+    display: flex;
+    background-color: rgb(0, 0, 0);
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    padding: 16px 16px 16px 56px;
+    border-radius: 15px;
+    background-image: url("images/logo.png");
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    /* border-radius: 50%;
+    weight: 200px;
+    height: 200px; */
+    cursor: pointer;
+    transition: 0.8s ease;
+}
+
+.btn:hover{
+    background-color: rgb(212, 17, 17);
+    box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.514) inset;
+}
+
+.wr-img{
+    /* background: url("/images/famalionvelosidped.jpg") red; */
+    background-image: url("images/photo3.png"); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* изображение сколлится тоже */
+    /* visibility: hidden; */
+    /* opacity: 0; */
+    display: none; /* оптимизирует и скрывает блок */
+}
+
+/* Блок который затемняет */
+.black{                              
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #0000009a;
+    color: white;
+    font-weight: bold;
+    border-radius: 13px;
+} 
+
+/* Втиснуть видео в блок */
+
+.wr-video{
+    overflow: hidden;
+
+}
+
+/* Размеры самого видео */
+
+.wr-video video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.wr-audio{
+    background-image: url("images/photo2.jpg");
+    background-position: center;
+    flex-direction: column;
+    color: rgb(255, 255, 255);
+}
+
+.wr-benzopila{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    object-fit: cover;
+    width: 900px;
+    height: 380px;    
+}
