@@ -444,14 +444,14 @@ self.addEventListener('notificationclick', event => {
             clients.matchAll({ type: 'window' }).then(clientList => {
                 // Try to focus existing window
                 for (const client of clientList) {
-                    if (client.url.includes('donate.html') && 'focus' in client) {
+                    if (client.url.includes('/') && 'focus' in client) {
                         return client.focus();
                     }
                 }
                 
                 // Open new window
                 if (clients.openWindow) {
-                    return clients.openWindow('/donate.html');
+                    return clients.openWindow('/');
                 }
             })
         );

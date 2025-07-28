@@ -50,7 +50,7 @@
 
 ```
 17yotk-donation-system/
-├── 📄 donate.html              # Основная страница
+├── 📄 index.html               # Главная страница (донат магазин)
 ├── 🎨 donate-styles.css        # Современные стили
 ├── ⚡ donate-script.js          # JavaScript функциональность
 ├── 📱 manifest.json            # PWA манифест
@@ -85,7 +85,7 @@ const CONFIG = {
 ```json
 {
     "name": "Ваш MC Server - Донат",
-    "start_url": "/donate.html",
+    "start_url": "/",
     "theme_color": "#ваш_цвет"
 }
 ```
