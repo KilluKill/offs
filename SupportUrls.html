@@ -1,2 +1,778 @@
-<a href="httpscssfx.netlify.app">CSS Animations</a>
-<a href="animate.style">CSS Animations 2</a>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Полезные ресурсы и ссылки для веб-разработки - 17yotk SITE">
+    <meta name="keywords" content="ресурсы, ссылки, CSS, анимации, веб-разработка, инструменты">
+    <meta name="author" content="17yotk">
+    <meta name="theme-color" content="#667eea">
+    
+    <title>Полезные Ресурсы - 17yotk SITE</title>
+    <link rel="icon" type="image/x-icon" href="Logo/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="Logo/favicon.ico">
+    
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #f093fb;
+            --text-color: #333;
+            --text-light: #666;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --border-radius: 15px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        /* Навигация */
+        .back-nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text-color);
+            padding: 12px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: clamp(12px, 2.5vw, 16px);
+            font-weight: 600;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: var(--shadow);
+        }
+
+        .back-nav:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: clamp(40px, 8vw, 80px) 20px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header p {
+            font-size: clamp(16px, 3vw, 20px);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        /* Контейнер */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        /* Поиск */
+        .search-container {
+            margin-bottom: 40px;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .search-box {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 15px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            font-size: clamp(14px, 2.5vw, 16px);
+            width: 100%;
+            max-width: 400px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(240, 147, 251, 0.2);
+        }
+
+        /* Категории */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .category {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: fadeInUp 0.8s ease-out calc(0.6s + var(--delay, 0s)) both;
+        }
+
+        .category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .category-icon {
+            font-size: 40px;
+            margin-right: 15px;
+        }
+
+        .category h2 {
+            font-size: clamp(20px, 4vw, 28px);
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .category p {
+            color: var(--text-light);
+            margin-bottom: 25px;
+            font-size: clamp(14px, 2.5vw, 16px);
+        }
+
+        /* Ссылки */
+        .resource-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .resource-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .resource-link:hover {
+            color: white;
+            transform: translateX(10px);
+            border-color: var(--primary-color);
+        }
+
+        .resource-link:hover::before {
+            left: 0;
+        }
+
+        .resource-link .icon {
+            font-size: 20px;
+            margin-right: 15px;
+            min-width: 30px;
+        }
+
+        .resource-link .content {
+            flex: 1;
+        }
+
+        .resource-link .title {
+            font-weight: 600;
+            font-size: clamp(14px, 2.5vw, 16px);
+            margin-bottom: 5px;
+        }
+
+        .resource-link .description {
+            font-size: clamp(12px, 2vw, 14px);
+            opacity: 0.8;
+        }
+
+        .resource-link .external-icon {
+            font-size: 16px;
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+
+        .resource-link:hover .external-icon {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        /* Статистика */
+        .stats {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out 1.2s both;
+        }
+
+        .stats h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: clamp(18px, 3.5vw, 24px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: clamp(24px, 5vw, 32px);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: clamp(12px, 2vw, 14px);
+            opacity: 0.9;
+        }
+
+        /* Анимации */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Мобильная адаптация */
+        @media screen and (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+
+            .back-nav {
+                top: 15px;
+                left: 15px;
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            .header {
+                padding: 40px 15px;
+            }
+
+            .container {
+                padding: 0 15px 40px;
+            }
+
+            .categories {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .category {
+                padding: 20px;
+            }
+
+            .resource-link {
+                padding: 12px 15px;
+            }
+
+            .stats {
+                padding: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .stat-item {
+                padding: 15px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .resource-link .icon {
+                font-size: 18px;
+                margin-right: 10px;
+                min-width: 25px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .category-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Улучшения для доступности */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Темная тема */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-color: #f0f0f0;
+                --text-light: #ccc;
+                --card-bg: rgba(255, 255, 255, 0.1);
+            }
+
+            .search-box {
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+            }
+
+            .search-box::placeholder {
+                color: rgba(255, 255, 255, 0.7);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация назад -->
+    <a href="index.html" class="back-nav" aria-label="Вернуться на главную">
+        ← Главная
+    </a>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>Полезные Ресурсы</h1>
+        <p>Коллекция лучших инструментов и ресурсов для веб-разработки</p>
+    </header>
+
+    <!-- Контейнер -->
+    <div class="container">
+        <!-- Поиск -->
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="Поиск по ресурсам..." 
+                   id="searchInput" aria-label="Поиск ресурсов">
+        </div>
+
+        <!-- Статистика -->
+        <div class="stats">
+            <h3>Статистика ресурсов</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalResources">24</div>
+                    <div class="stat-label">Ресурсов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Категорий</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="clickCount">0</div>
+                    <div class="stat-label">Кликов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">★★★★★</div>
+                    <div class="stat-label">Качество</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Категории ресурсов -->
+        <div class="categories" id="categoriesContainer">
+            <!-- CSS Анимации -->
+            <div class="category" style="--delay: 0s" data-category="css">
+                <div class="category-header">
+                    <div class="category-icon">🎨</div>
+                    <h2>CSS Анимации</h2>
+                </div>
+                <p>Лучшие ресурсы для создания потрясающих CSS анимаций</p>
+                <div class="resource-links">
+                    <a href="https://cssfx.netlify.app" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">✨</span>
+                        <div class="content">
+                            <div class="title">CSS FX</div>
+                            <div class="description">Коллекция готовых CSS эффектов</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                    <a href="https://animate.style" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">🌟</span>
+                        <div class="content">
+                            <div class="title">Animate.css</div>
+                            <div class="description">Библиотека CSS анимаций</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                    <a href="https://animista.net" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">🎭</span>
+                        <div class="content">
+                            <div class="title">Animista</div>
+                            <div class="description">Конструктор CSS анимаций</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Инструменты разработки -->
+            <div class="category" style="--delay: 0.1s" data-category="tools">
+                <div class="category-header">
+                    <div class="category-icon">🛠️</div>
+                    <h2>Инструменты</h2>
+                </div>
+                <p>Полезные инструменты для повышения продуктивности</p>
+                <div class="resource-links">
+                    <a href="https://codepen.io" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">🖊️</span>
+                        <div class="content">
+                            <div class="title">CodePen</div>
+                            <div class="description">Онлайн редактор кода</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                    <a href="https://caniuse.com" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">📊</span>
+                        <div class="content">
+                            <div class="title">Can I Use</div>
+                            <div class="description">Поддержка веб-технологий</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                    <a href="https://validator.w3.org" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">✅</span>
+                        <div class="content">
+                            <div class="title">W3C Validator</div>
+                            <div class="description">Валидатор HTML и CSS</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Дизайн -->
+            <div class="category" style="--delay: 0.2s" data-category="design">
+                <div class="category-header">
+                    <div class="category-icon">🎨</div>
+                    <h2>Дизайн</h2>
+                </div>
+                <p>Ресурсы для создания красивого дизайна</p>
+                <div class="resource-links">
+                    <a href="https://dribbble.com" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">🏀</span>
+                        <div class="content">
+                            <div class="title">Dribbble</div>
+                            <div class="description">Вдохновение для дизайнеров</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                    <a href="https://unsplash.com" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">📸</span>
+                        <div class="content">
+                            <div class="title">Unsplash</div>
+                            <div class="description">Бесплатные фотографии</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                    <a href="https://coolors.co" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">🌈</span>
+                        <div class="content">
+                            <div class="title">Coolors</div>
+                            <div class="description">Генератор цветовых палитр</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Иконки -->
+            <div class="category" style="--delay: 0.3s" data-category="icons">
+                <div class="category-header">
+                    <div class="category-icon">🔸</div>
+                    <h2>Иконки</h2>
+                </div>
+                <p>Лучшие ресурсы для поиска иконок</p>
+                <div class="resource-links">
+                    <a href="https://fontawesome.com" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">⭐</span>
+                        <div class="content">
+                            <div class="title">Font Awesome</div>
+                            <div class="description">Популярная библиотека иконок</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                    <a href="https://heroicons.com" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">🦸</span>
+                        <div class="content">
+                            <div class="title">Heroicons</div>
+                            <div class="description">SVG иконки от Tailwind CSS</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                    <a href="https://feathericons.com" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">🪶</span>
+                        <div class="content">
+                            <div class="title">Feather Icons</div>
+                            <div class="description">Простые и красивые иконки</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Шрифты -->
+            <div class="category" style="--delay: 0.4s" data-category="fonts">
+                <div class="category-header">
+                    <div class="category-icon">🔤</div>
+                    <h2>Шрифты</h2>
+                </div>
+                <p>Коллекция красивых веб-шрифтов</p>
+                <div class="resource-links">
+                    <a href="https://fonts.google.com" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">🌐</span>
+                        <div class="content">
+                            <div class="title">Google Fonts</div>
+                            <div class="description">Бесплатные веб-шрифты</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                    <a href="https://dafont.com" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">📝</span>
+                        <div class="content">
+                            <div class="title">DaFont</div>
+                            <div class="description">Архив бесплатных шрифтов</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                    <a href="https://fontpair.co" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">👥</span>
+                        <div class="content">
+                            <div class="title">Font Pair</div>
+                            <div class="description">Комбинации шрифтов</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Обучение -->
+            <div class="category" style="--delay: 0.5s" data-category="learning">
+                <div class="category-header">
+                    <div class="category-icon">📚</div>
+                    <h2>Обучение</h2>
+                </div>
+                <p>Ресурсы для изучения веб-разработки</p>
+                <div class="resource-links">
+                    <a href="https://developer.mozilla.org" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">🦎</span>
+                        <div class="content">
+                            <div class="title">MDN Web Docs</div>
+                            <div class="description">Документация веб-технологий</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                    <a href="https://freecodecamp.org" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">🏕️</span>
+                        <div class="content">
+                            <div class="title">freeCodeCamp</div>
+                            <div class="description">Бесплатное обучение программированию</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                    <a href="https://css-tricks.com" class="resource-link" target="_blank" rel="noopener">
+                        <span class="icon">🎯</span>
+                        <div class="content">
+                            <div class="title">CSS-Tricks</div>
+                            <div class="description">Советы и трюки по CSS</div>
+                        </div>
+                        <span class="external-icon">↗</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Поиск по ресурсам
+        function initSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const categories = document.querySelectorAll('.category');
+            
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                categories.forEach(category => {
+                    const categoryText = category.textContent.toLowerCase();
+                    const isVisible = categoryText.includes(searchTerm);
+                    
+                    category.style.display = isVisible ? 'block' : 'none';
+                });
+            });
+        }
+
+        // Счетчик кликов
+        function initClickCounter() {
+            const links = document.querySelectorAll('.resource-link');
+            const clickCountElement = document.getElementById('clickCount');
+            let clickCount = parseInt(localStorage.getItem('resourceClicks') || '0');
+            
+            clickCountElement.textContent = clickCount;
+            
+            links.forEach(link => {
+                link.addEventListener('click', function() {
+                    clickCount++;
+                    clickCountElement.textContent = clickCount;
+                    localStorage.setItem('resourceClicks', clickCount.toString());
+                    
+                    // Аналитика (если нужно)
+                    console.log('Resource clicked:', this.href);
+                });
+            });
+        }
+
+        // Анимация появления элементов
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Наблюдение за категориями без начальной анимации
+            document.querySelectorAll('.category').forEach((category, index) => {
+                if (!category.style.animation) {
+                    category.style.opacity = '0';
+                    category.style.transform = 'translateY(30px)';
+                    category.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                    observer.observe(category);
+                }
+            });
+        }
+
+        // Клавиатурная навигация
+        function initKeyboardNavigation() {
+            const links = document.querySelectorAll('.resource-link');
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    // Улучшенная видимость фокуса
+                    setTimeout(() => {
+                        const focusedElement = document.activeElement;
+                        if (focusedElement.classList.contains('resource-link')) {
+                            focusedElement.style.outline = '3px solid var(--accent-color)';
+                            focusedElement.style.outlineOffset = '2px';
+                        }
+                    }, 0);
+                }
+            });
+        }
+
+        // Инициализация при загрузке DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            initSearch();
+            initClickCounter();
+            initScrollAnimations();
+            initKeyboardNavigation();
+            
+            console.log('Support resources page loaded successfully!');
+        });
+
+        // Обработка ошибок при переходе по ссылкам
+        document.querySelectorAll('.resource-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Проверка доступности ссылки (базовая)
+                if (!navigator.onLine) {
+                    e.preventDefault();
+                    alert('Нет подключения к интернету. Проверьте соединение и попробуйте снова.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

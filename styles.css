@@ -1,6 +1,6 @@
 *,
 *::after,
-*::before{
+*::before {
     padding: 0;
     border: 0;
     margin: 0;
@@ -10,136 +10,724 @@
 @font-face {
     font-family: "Pacifico";
     src: url('fonts/Pacifico/Pacifico-Regular.woff2') format('woff2');
-    font-weight: auto;
+    font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
     font-family: "PressStart2P";
-    src: url('fonts/Pacifico/PressStart2P-Regular.ttf') format('truetype');
-    font-weight: auto;
+    src: url('fonts/PressStart2P/PressStart2P-Regular.ttf') format('truetype');
+    font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 
+:root {
+    --primary-color: #2137a6;
+    --secondary-color: #6e4d52;
+    --accent-color: #d41111;
+    --text-color: #ffffff;
+    --border-radius: 15px;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --transition: all 0.3s ease;
+}
 
+html {
+    scroll-behavior: smooth;
+}
 
-
-body{
+body {
     display: flex;
     flex-direction: column;
-    /* flex-direction: column; */
-    font-family: "PressStart2P";
+    font-family: "PressStart2P", monospace;
     font-optical-sizing: auto;
-    font-size: normal;
-    line-height: calc(22px*1.3);
-    background: radial-gradient(circle, rgba(33, 55, 166, 1) 0%, rgba(110, 77, 82, 1) 83%);
-    min-height: calc(100vh - 120px);
+    font-size: clamp(12px, 2vw, 16px);
+    line-height: 1.6;
+    background: radial-gradient(circle, var(--primary-color) 0%, var(--secondary-color) 83%);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
-.wrapper{
-    width: 900px;
-    height: 380px;
-    border: 2px solid red;
-    margin: 120px auto 80px auto;
+.wrapper {
+    width: min(90vw, 900px);
+    height: clamp(250px, 50vw, 380px);
+    border: 2px solid #ff0000;
+    margin: clamp(40px, 10vw, 120px) auto clamp(20px, 5vw, 80px) auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 15px;
-    background: #2137a6;
+    border-radius: var(--border-radius);
+    background: var(--primary-color);
     background-image: url("images/photo1.jpg");
     background-position: center;
-    /* background-repeat: repeat-y; */ 
+    background-size: cover;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
 }
 
-.wrapper a{
-    color: black;
+.wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.wrapper a {
+    color: var(--text-color);
     text-decoration: none;
-}
-
-.wrapper a:hover{
-    transform: scale(0.93);
-    transition: 0.15s;
-}
-
-.btn{
-    color: white;
+    display: block;
+    width: 100%;
+    height: 100%;
     display: flex;
-    background-color: rgb(0, 0, 0);
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper a:hover {
+    transform: scale(0.95);
+    transition: var(--transition);
+}
+
+.btn {
+    color: var(--text-color);
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.8);
     text-align: center;
     justify-content: center;
-    justify-items: center;
     align-items: center;
-    padding: 16px 16px 16px 56px;
-    border-radius: 15px;
+    padding: clamp(12px, 3vw, 16px) clamp(12px, 3vw, 16px) clamp(12px, 3vw, 16px) clamp(40px, 8vw, 56px);
+    border-radius: var(--border-radius);
     background-image: url("images/logo.png");
     background-repeat: no-repeat;
     background-position: 15px center;
-    /* border-radius: 50%;
-    weight: 200px;
-    height: 200px; */
+    background-size: contain;
     cursor: pointer;
-    transition: 0.8s ease;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: clamp(10px, 2.5vw, 14px);
+    gap: 8px;
 }
 
-.btn:hover{
-    background-color: rgb(212, 17, 17);
-    box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.514) inset;
+.btn:hover {
+    background-color: var(--accent-color);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
 }
 
-.wr-img{
-    /* background: url("/images/famalionvelosidped.jpg") red; */
+.btn:active {
+    transform: scale(0.98);
+}
+
+.wr-img {
     background-image: url("images/photo3.png"); 
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* изображение сколлится тоже */
-    /* visibility: hidden; */
-    /* opacity: 0; */
-    display: none; /* оптимизирует и скрывает блок */
+    background-attachment: fixed;
+    display: none;
 }
 
-/* Блок который затемняет */
-.black{                              
+.black {                              
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: #0000009a;
-    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    color: var(--text-color);
     font-weight: bold;
-    border-radius: 13px;
+    border-radius: calc(var(--border-radius) - 2px);
+    backdrop-filter: blur(5px);
+    padding: 20px;
 } 
 
-/* Втиснуть видео в блок */
-
-.wr-video{
+.wr-video {
     overflow: hidden;
-
+    border-radius: var(--border-radius);
 }
 
-/* Размеры самого видео */
-
-.wr-video video{
+.wr-video video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: calc(var(--border-radius) - 2px);
 }
 
-.wr-audio{
+.wr-audio {
     background-image: url("images/photo2.jpg");
     background-position: center;
+    background-size: cover;
     flex-direction: column;
-    color: rgb(255, 255, 255);
+    color: var(--text-color);
+    gap: 20px;
+    padding: 20px;
+    text-align: center;
 }
 
-.wr-benzopila{
+.wr-audio p {
+    font-size: clamp(14px, 3vw, 18px);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    margin-bottom: 10px;
+}
+
+.wr-audio audio {
+    width: min(100%, 400px);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.wr-benzopila {
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     overflow: hidden;
+    border-radius: var(--border-radius);
+}
+
+.wr-benzopila video {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    width: 900px;
-    height: 380px;    
+    border-radius: calc(var(--border-radius) - 2px);
+}
+
+/* Навигация */
+.navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(33, 55, 166, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: 15px 0;
+    transition: var(--transition);
+}
+
+.navigation ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(10px, 5vw, 30px);
+    margin: 0;
+    padding: 0;
+}
+
+.navigation li {
+    position: relative;
+}
+
+.navigation a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: clamp(8px, 2vw, 12px);
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: var(--transition);
+    display: block;
+}
+
+.navigation a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Отступ для контента под навигацией */
+main {
+    margin-top: 80px;
+}
+
+/* Секция поддержки/доната */
+.support-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    flex-direction: column;
+    text-align: center;
+    padding: 30px;
+    gap: 20px;
+}
+
+.support-content h2 {
+    font-size: clamp(16px, 4vw, 24px);
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.support-content p {
+    font-size: clamp(10px, 2.5vw, 14px);
+    color: var(--text-color);
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.donation-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.donate-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    padding: 12px 20px;
+    color: var(--text-color);
+    font-size: clamp(10px, 2.5vw, 14px);
+    cursor: pointer;
+    transition: var(--transition);
+    backdrop-filter: blur(5px);
+    font-family: inherit;
+}
+
+.donate-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.donate-btn:active {
+    transform: translateY(-1px);
+}
+
+.donation-info {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.donation-info p {
+    font-size: clamp(8px, 2vw, 12px);
+    opacity: 0.8;
+    margin: 0;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    width: min(90%, 500px);
+    position: relative;
+    animation: modalSlideIn 0.3s ease-out;
+    color: var(--text-color);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+.close:hover {
+    color: var(--accent-color);
+    transform: scale(1.2);
+}
+
+#modalTitle {
+    font-size: clamp(16px, 4vw, 20px);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#modalBody {
+    text-align: left;
+}
+
+.modal-description {
+    font-size: clamp(14px, 3vw, 16px);
+    margin-bottom: 20px;
+    opacity: 0.9;
+    text-align: center;
+}
+
+.qr-container {
+    text-align: center;
+    margin: 25px 0;
+}
+
+.qr-code {
+    max-width: 200px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.payment-details {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    backdrop-filter: blur(5px);
+}
+
+.detail-item {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: clamp(12px, 2.5vw, 14px);
+    word-break: break-all;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.copy-btn,
+.close-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: var(--text-color);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: clamp(12px, 2.5vw, 14px);
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.copy-btn:hover,
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Прелоадер */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    transition: opacity 0.5s ease;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top: 5px solid var(--text-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.preloader p {
+    color: var(--text-color);
+    font-size: clamp(12px, 3vw, 16px);
+}
+
+/* Footer */
+.footer {
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--text-color);
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 50px;
+    backdrop-filter: blur(10px);
+}
+
+.footer p {
+    margin-bottom: 15px;
+    font-size: clamp(10px, 2.5vw, 14px);
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: clamp(8px, 2vw, 12px);
+    padding: 8px 15px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Ошибки медиа */
+.media-error {
+    color: var(--accent-color);
+    text-align: center;
+    padding: 20px;
+    font-size: clamp(10px, 2.5vw, 14px);
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    margin: 10px;
+}
+
+/* Дополнительные стили для секций */
+.wr-audio h2 {
+    font-size: clamp(14px, 3.5vw, 20px);
+    margin-bottom: 10px;
+}
+
+/* Мобильная адаптация для новых элементов */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 12px;
+        padding: 10px;
+    }
+    
+    .wrapper {
+        width: 95vw;
+        height: 60vw;
+        margin: 30px auto 20px auto;
+        border-width: 1px;
+    }
+    
+    .btn {
+        padding: 12px 12px 12px 40px;
+        font-size: 10px;
+        background-size: 20px;
+        background-position: 10px center;
+    }
+    
+    .wr-audio {
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .wr-audio p {
+        font-size: 12px;
+    }
+    
+    .wr-audio audio {
+        width: 100%;
+        height: 40px;
+    }
+
+    .navigation {
+        padding: 10px 0;
+    }
+    
+    .navigation ul {
+        gap: 10px;
+    }
+    
+    .navigation a {
+        padding: 6px 10px;
+        font-size: 8px;
+    }
+    
+    main {
+        margin-top: 60px;
+    }
+    
+    .support-section {
+        padding: 20px;
+        gap: 15px;
+    }
+    
+    .donation-buttons {
+        gap: 10px;
+    }
+    
+    .donate-btn {
+        padding: 10px 15px;
+        font-size: 10px;
+    }
+    
+    .modal-content {
+        margin: 20% auto;
+        padding: 20px;
+        width: 95%;
+    }
+    
+    .footer {
+        padding: 20px 15px;
+    }
+    
+    .footer-links {
+        gap: 10px;
+    }
+    
+    .footer-links a {
+        padding: 6px 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 10px;
+    }
+    
+    .wrapper {
+        width: 98vw;
+        height: 70vw;
+        margin: 20px auto 15px auto;
+        border-radius: 10px;
+    }
+    
+    .btn {
+        padding: 10px 10px 10px 35px;
+        font-size: 8px;
+        border-radius: 10px;
+        background-size: 16px;
+        background-position: 8px center;
+    }
+    
+    .black {
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .navigation ul {
+        gap: 5px;
+    }
+    
+    .navigation a {
+        padding: 5px 8px;
+        font-size: 7px;
+    }
+    
+    main {
+        margin-top: 50px;
+    }
+    
+    .support-section {
+        padding: 15px;
+    }
+    
+    .donation-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .donate-btn {
+        width: 80%;
+        max-width: 200px;
+    }
+    
+    .modal-content {
+        margin: 15% auto;
+        padding: 15px;
+    }
+}
+
+/* Анимации для лучшего UX */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.wrapper {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Улучшенная доступность */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .loader {
+        animation: none;
+    }
+    
+    .navigation a:hover,
+    .donate-btn:hover,
+    .footer-links a:hover {
+        transform: none;
+    }
+}
+
+/* Темная тема для устройств с темными настройками */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #1a2b5c;
+        --secondary-color: #4a3640;
+    }
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
 }
