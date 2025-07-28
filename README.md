@@ -50,16 +50,16 @@
 
 ```
 17yotk-donation-system/
-├── 📄 index.html               # Главная страница (донат магазин)
-├── 🎨 donate-styles.css        # Современные стили
+├── 📄 index.html               # Донат магазин (главная страница)
+├── 🎨 donate-styles.css        # Стили для магазина
 ├── ⚡ donate-script.js          # JavaScript функциональность
 ├── 📱 manifest.json            # PWA манифест
-├── 🔧 sw.js                    # Service Worker
+├── 🔧 sw.js                    # Service Worker для офлайн работы
 ├── ⚙️ api-config.example.js    # Пример конфигурации API
 ├── 📁 images/                  # Изображения и иконки
-├── 📁 Logo/                    # Логотипы и фавиконы
+├── 📁 Logo/                    # Логотипы и favicon
 ├── 📁 fonts/                   # Веб-шрифты
-└── 📁 video/                   # Видео для фона
+└── 📁 video/                   # Фоновое видео (cloud.mp4)
 ```
 
 ## 🛠 Установка и настройка
