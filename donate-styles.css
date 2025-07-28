@@ -5,6 +5,60 @@
     box-sizing: border-box;
 }
 
+/* Font Awesome Fallback Icons */
+.fa-fallback {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    line-height: 1;
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    text-decoration: inherit;
+    text-transform: none;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fallback content for common icons */
+.fas.fa-star::before, .fa-star.fa-fallback::before { content: '★'; }
+.fas.fa-crown::before, .fa-crown.fa-fallback::before { content: '♛'; }
+.fas.fa-gem::before, .fa-gem.fa-fallback::before { content: '♦'; }
+.fas.fa-fire::before, .fa-fire.fa-fallback::before { content: '🔥'; }
+.fas.fa-check-circle::before, .fa-check-circle.fa-fallback::before { content: '✓'; }
+.fas.fa-shopping-cart::before, .fa-shopping-cart.fa-fallback::before { content: '🛒'; }
+.fas.fa-coins::before, .fa-coins.fa-fallback::before { content: '💰'; }
+.fas.fa-hammer::before, .fa-hammer.fa-fallback::before { content: '🔨'; }
+.fas.fa-shield-alt::before, .fa-shield-alt.fa-fallback::before { content: '🛡'; }
+.fas.fa-home::before, .fa-home.fa-fallback::before { content: '🏠'; }
+.fas.fa-paw::before, .fa-paw.fa-fallback::before { content: '🐾'; }
+.fas.fa-cubes::before, .fa-cubes.fa-fallback::before { content: '📦'; }
+.fab.fa-cc-visa::before, .fa-cc-visa.fa-fallback::before { content: '💳'; }
+.fas.fa-mobile-alt::before, .fa-mobile-alt.fa-fallback::before { content: '📱'; }
+.fab.fa-paypal::before, .fa-paypal.fa-fallback::before { content: 'PP'; }
+.fab.fa-bitcoin::before, .fa-bitcoin.fa-fallback::before { content: '₿'; }
+.fas.fa-wallet::before, .fa-wallet.fa-fallback::before { content: '👛'; }
+.fas.fa-ruble-sign::before, .fa-ruble-sign.fa-fallback::before { content: '₽'; }
+.fas.fa-times::before, .fa-times.fa-fallback::before { content: '×'; }
+.fas.fa-user::before, .fa-user.fa-fallback::before { content: '👤'; }
+.fas.fa-credit-card::before, .fa-credit-card.fa-fallback::before { content: '💳'; }
+.fas.fa-lock::before, .fa-lock.fa-fallback::before { content: '🔒'; }
+.fab.fa-discord::before, .fa-discord.fa-fallback::before { content: '💬'; }
+.fas.fa-external-link-alt::before, .fa-external-link-alt.fa-fallback::before { content: '↗'; }
+.fab.fa-telegram::before, .fa-telegram.fa-fallback::before { content: '✈'; }
+.fas.fa-envelope::before, .fa-envelope.fa-fallback::before { content: '✉'; }
+.fas.fa-copy::before, .fa-copy.fa-fallback::before { content: '📋'; }
+.fas.fa-chevron-down::before, .fa-chevron-down.fa-fallback::before { content: '▼'; }
+.fas.fa-server::before, .fa-server.fa-fallback::before { content: '🖥'; }
+.fab.fa-vk::before, .fa-vk.fa-fallback::before { content: 'VK'; }
+.fab.fa-youtube::before, .fa-youtube.fa-fallback::before { content: '📺'; }
+.fab.fa-twitch::before, .fa-twitch.fa-fallback::before { content: 'TV'; }
+.fas.fa-shield-alt::before, .fa-shield-alt.fa-fallback::before { content: '🛡'; }
+.fas.fa-clock::before, .fa-clock.fa-fallback::before { content: '🕐'; }
+.fas.fa-certificate::before, .fa-certificate.fa-fallback::before { content: '🏆'; }
+
 /* Performance optimizations */
 * {
     -webkit-tap-highlight-color: transparent;

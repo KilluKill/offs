@@ -121,6 +121,9 @@ function cacheDOMElements() {
  * Initialize all components
  */
 async function initializeComponents() {
+    // Check Font Awesome and add fallbacks if needed
+    checkFontAwesome();
+    
     // Load data from database
     await loadDatabaseData();
     
@@ -1944,6 +1947,35 @@ function closeModal(modal) {
             modal.parentNode.removeChild(modal);
         }
     }, 300);
+}
+
+/**
+ * Check if Font Awesome is loaded and add fallback classes if needed
+ */
+function checkFontAwesome() {
+    // Wait a bit for Font Awesome to load
+    setTimeout(() => {
+        const testIcon = document.createElement('i');
+        testIcon.className = 'fas fa-star';
+        testIcon.style.position = 'absolute';
+        testIcon.style.left = '-9999px';
+        document.body.appendChild(testIcon);
+        
+        const computedStyle = window.getComputedStyle(testIcon, '::before');
+        const content = computedStyle.getPropertyValue('content');
+        
+        // If Font Awesome didn't load properly, add fallback classes
+        if (!content || content === 'none' || content === '""') {
+            document.querySelectorAll('.fas, .fab, .far').forEach(icon => {
+                icon.classList.add('fa-fallback');
+            });
+            
+            // Show notification about fallback icons
+            showNotification('Иконки загружены в упрощенном режиме', 'info');
+        }
+        
+        document.body.removeChild(testIcon);
+    }, 1000);
 }
 
 // Initialize when DOM is ready

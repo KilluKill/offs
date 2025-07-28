@@ -42,7 +42,7 @@ define('SECURITY_HEADERS', [
     'X-Frame-Options' => 'DENY',
     'X-XSS-Protection' => '1; mode=block',
     'Referrer-Policy' => 'strict-origin-when-cross-origin',
-    'Content-Security-Policy' => "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self';"
+    'Content-Security-Policy' => "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://js.stripe.com https://www.paypal.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://use.fontawesome.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com https://use.fontawesome.com; img-src 'self' data: https:; connect-src 'self';"
 ]);
 
 // Logging Configuration
