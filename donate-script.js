@@ -197,8 +197,11 @@ function setupEventListeners() {
  * Package selection handler
  */
 function selectPackage(name, price, type) {
+    console.log('🎮 Selecting package:', { name, price, type });
+    
     try {
         state.selectedPackage = { name, price, type };
+        console.log('✅ Package selected:', state.selectedPackage);
         
         // Update selected package display
         updateSelectedPackageDisplay();
@@ -218,8 +221,8 @@ function selectPackage(name, price, type) {
         showNotification(`Выбран пакет: ${name}`, 'success');
         
     } catch (error) {
-        console.error('Error selecting package:', error);
-        showNotification('Ошибка выбора пакета', 'error');
+        console.error('❌ Error selecting package:', error);
+        showNotification('Ошибка выбора пакета: ' + error.message, 'error');
     }
 }
 
@@ -807,9 +810,14 @@ function hideMobileCart() {
 /**
  * Show purchase form from mobile cart
  */
-function showPurchaseForm() {
+function showPurchaseFormFromCart() {
     if (state.isFormVisible) return;
-    showPurchaseForm();
+    if (elements.purchaseForm) {
+        elements.purchaseForm.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    }
 }
 
 /**
@@ -1545,16 +1553,20 @@ function closeModal(modal) {
 }
 
 // Initialize when DOM is ready
+console.log('🔧 Script loaded, document state:', document.readyState);
+
 if (document.readyState === 'loading') {
+    console.log('⏳ Waiting for DOM to load...');
     document.addEventListener('DOMContentLoaded', init);
 } else {
+    console.log('🚀 DOM already loaded, initializing...');
     init();
 }
 
 // Export functions for global access
 window.selectPackage = selectPackage;
 window.closePurchaseForm = closePurchaseForm;
-window.showPurchaseForm = showPurchaseForm;
+window.showPurchaseFormFromCart = showPurchaseFormFromCart;
 window.copyServerIP = copyServerIP;
 window.copyEmail = copyEmail;
 window.toggleFAQ = toggleFAQ;

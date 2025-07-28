@@ -344,7 +344,7 @@ body {
 /* Hero Section */
 .hero {
     position: relative;
-    min-height: 100vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -536,7 +536,7 @@ body {
 
 /* Packages Section */
 .packages {
-    padding: var(--space-20) 0;
+    padding: var(--space-12) 0;
     position: relative;
 }
 
@@ -745,7 +745,7 @@ body {
 
 /* Additional Items */
 .additional-items {
-    padding: var(--space-20) 0;
+    padding: var(--space-12) 0;
     background: rgba(0, 0, 0, 0.2);
 }
 
@@ -808,7 +808,7 @@ body {
 
 /* Payment Section */
 .payment {
-    padding: var(--space-20) 0;
+    padding: var(--space-12) 0;
 }
 
 .payment-methods {
@@ -886,9 +886,11 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: all var(--transition-base);
+    display: none;
 }
 
 .purchase-form.active {
+    display: block;
     transform: translateY(0);
     opacity: 1;
     visibility: visible;
@@ -1109,7 +1111,7 @@ body {
 
 /* Support Section */
 .support {
-    padding: var(--space-20) 0;
+    padding: var(--space-12) 0;
     background: rgba(0, 0, 0, 0.2);
 }
 
@@ -1251,8 +1253,8 @@ body {
 /* Footer */
 .footer {
     background: rgba(0, 0, 0, 0.8);
-    padding: var(--space-20) 0 var(--space-8);
-    margin-top: var(--space-20);
+    padding: var(--space-12) 0 var(--space-6);
+    margin-top: var(--space-8);
 }
 
 .footer-content {
@@ -1477,6 +1479,11 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .hero {
+        min-height: 80vh;
+        padding: var(--space-8) 0;
+    }
+    
     .hero h2 {
         font-size: var(--font-size-3xl);
     }
@@ -1491,24 +1498,48 @@ body {
         max-width: 280px;
     }
     
+    .packages {
+        padding: var(--space-8) 0;
+    }
+    
     .packages-grid {
         grid-template-columns: 1fr;
+        gap: var(--space-4);
     }
     
     .package-card.popular {
         transform: none;
     }
     
+    .additional-items {
+        padding: var(--space-8) 0;
+    }
+    
     .items-grid {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--space-4);
+    }
+    
+    .payment {
+        padding: var(--space-8) 0;
     }
     
     .payment-methods {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: var(--space-3);
+    }
+    
+    .support {
+        padding: var(--space-8) 0;
     }
     
     .support-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .footer {
+        padding: var(--space-8) 0 var(--space-4);
+        margin-top: var(--space-6);
     }
     
     .footer-bottom {
