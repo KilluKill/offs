@@ -2,41 +2,174 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>17yotk SITE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="17yotk SITE - интерактивный веб-сайт с видео, аудио и анимациями">
+    <meta name="keywords" content="17yotk, интерактивный сайт, веб-дизайн, мультимедиа">
+    <meta name="author" content="17yotk">
+    <meta name="theme-color" content="#2137a6">
+    
+    <!-- Open Graph мета-теги для социальных сетей -->
+    <meta property="og:title" content="17yotk SITE">
+    <meta property="og:description" content="Интерактивный веб-сайт с мультимедиа контентом">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./images/photo1.jpg">
+    
+    <!-- PWA поддержка -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <title>17yotk SITE - Главная</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="Logo/favicon.ico">
-    <link rel="shorcut" type="image/x-icon" href="Logo/favicon.ico">
-    <!-- <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" библиотека анимаций /> -->
+    <link rel="shortcut icon" type="image/x-icon" href="Logo/favicon.ico">
+    <link rel="apple-touch-icon" href="Logo/favicon.ico">
+    
+    <!-- Предзагрузка критических ресурсов -->
+    <link rel="preload" href="fonts/PressStart2P/PressStart2P-Regular.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="images/photo1.jpg" as="image">
+    
+    <!-- WOW.js для анимаций -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <div class="wrapper">
-        <a href="#anime">
-            <div class="btn font-face"><strong>Нажми меня</strong><span style="font-size: 26px;">&#128519;</span></div>
-        </a>
-    </div>
-    <div class="wrapper wr-img">
-        <div class="black">
-            <p>Lorem ipsum dolor sit amet.</p>
+    <!-- Навигация -->
+    <nav class="navigation" role="navigation" aria-label="Основная навигация">
+        <ul>
+            <li><a href="#main" aria-label="Главная секция">Главная</a></li>
+            <li><a href="#audio" aria-label="Аудио секция">Аудио</a></li>
+            <li><a href="#anime" aria-label="Видео секция">Видео</a></li>
+            <li><a href="book.html" aria-label="Страница книги">Книга</a></li>
+            <li><a href="#support" aria-label="Поддержка">Поддержка</a></li>
+        </ul>
+    </nav>
+
+    <!-- Главная секция -->
+    <main>
+        <section id="main" class="wrapper wow animate__animated animate__fadeInUp" role="main">
+            <a href="#anime" aria-label="Перейти к видео секции">
+                <div class="btn font-face">
+                    <strong>Нажми меня</strong>
+                    <span style="font-size: clamp(20px, 5vw, 26px);" aria-hidden="true">&#128519;</span>
+                </div>
+            </a>
+        </section>
+
+        <!-- Скрытая секция с изображением -->
+        <section class="wrapper wr-img wow animate__animated animate__fadeInLeft" style="display: none;">
+            <div class="black">
+                <p>Добро пожаловать на наш сайт! Здесь вы найдете удивительный контент.</p>
+            </div>
+        </section>
+
+        <!-- Видео секция -->
+        <section class="wrapper wr-video wow animate__animated animate__fadeInRight" role="region" aria-label="Видео контент">
+            <video src="video/NIGGACHU.MP4" autoplay muted loop playsinline 
+                   poster="images/photo1.jpg" 
+                   aria-label="Демонстрационное видео">
+                <p>Ваш браузер не поддерживает воспроизведение видео.</p>
+            </video>
+        </section>
+
+        <!-- Аудио секция -->
+        <section id="audio" class="wrapper wr-audio wow animate__animated animate__fadeInUp" role="region" aria-label="Аудио контент">
+            <h2>Музыкальная секция</h2>
+            <p>Наслаждайтесь нашей музыкой</p>
+            <audio src="audio/btleofthedragons.mp3" controls preload="metadata" 
+                   aria-label="Аудиозапись - Battle of the Dragons">
+                <p>Ваш браузер не поддерживает воспроизведение аудио.</p>
+            </audio>
+        </section>
+
+        <!-- Anime видео секция -->
+        <section id="anime" class="wrapper wr-benzopila wow animate__animated animate__bounceIn" role="region" aria-label="Аниме видео">
+            <video src="video/chelovekbenzopila.mp4" autoplay muted loop playsinline 
+                   poster="images/photo2.jpg"
+                   aria-label="Видео - Человек-бензопила">
+                <p>Ваш браузер не поддерживает воспроизведение видео.</p>
+            </video>
+        </section>
+
+        <!-- Секция поддержки/доната -->
+        <section id="support" class="wrapper support-section wow animate__animated animate__fadeInUp" role="region" aria-label="Поддержка проекта">
+            <div class="support-content">
+                <h2>Поддержать проект</h2>
+                <p>Если вам нравится наш контент, вы можете поддержать нас:</p>
+                <div class="donation-buttons">
+                    <button class="donate-btn" data-method="card" aria-label="Донат картой">
+                        💳 Картой
+                    </button>
+                    <button class="donate-btn" data-method="crypto" aria-label="Донат криптовалютой">
+                        ₿ Криптой
+                    </button>
+                    <button class="donate-btn" data-method="qr" aria-label="QR код для доната">
+                        📱 QR код
+                    </button>
+                </div>
+                <div class="donation-info">
+                    <p>Реквизиты будут добавлены администратором</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Модальное окно для доната -->
+    <div id="donationModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <span class="close" aria-label="Закрыть">&times;</span>
+            <h3 id="modalTitle">Поддержка проекта</h3>
+            <div id="modalBody">
+                <!-- Контент будет добавлен через JavaScript -->
+            </div>
         </div>
     </div>
-    <div class="wrapper wr-video">
-        <video src="video/NIGGACHU.MP4" autoplay muted loop></video>
+
+    <!-- Прелоадер -->
+    <div id="preloader" class="preloader" aria-hidden="true">
+        <div class="loader"></div>
+        <p>Загрузка...</p>
     </div>
-    <!-- wow animate__animated animate__bounceOut добавить после wr-audio через пробел не выходя за ковычки, для добавления анимации -->
-    <div class="wrapper wr-audio">
-        <p>Hello World</p>
-        <audio src="audio/btleofthedragons.mp3" controls muted loop></audio>
-    </div>
-    <div id="anime" class="wrapper wr-benzopila">
-        <video src="video/chelovekbenzopila.mp4" autoplay muted loop></video>
-    </div>
-    <!-- Авторское право -->
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <p>&copy; 2024 17yotk SITE. Все права защищены.</p>
+        <div class="footer-links">
+            <a href="SupportUrls.html" aria-label="Полезные ссылки">Ссылки</a>
+            <a href="#support" aria-label="Поддержка">Поддержка</a>
+            <a href="mailto:contact@17yotk.site" aria-label="Написать нам">Контакты</a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="Java/wow.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Инициализация WOW.js
+        new WOW().init();
+
+        // Прелоадер
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500);
+        });
+
+        // Обработка ошибок медиа
+        document.querySelectorAll('video, audio').forEach(media => {
+            media.addEventListener('error', function() {
+                console.log('Ошибка загрузки медиа:', this.src);
+                this.style.display = 'none';
+                const errorMsg = document.createElement('p');
+                errorMsg.textContent = 'Медиафайл недоступен';
+                errorMsg.className = 'media-error';
+                this.parentNode.appendChild(errorMsg);
+            });
+        });
+    </script>
 </body>
-<!-- <script src="Java/wow.min.js"></script>
-<script>
-    new WOW().init(); /* Подключение WOW */
-</script> -->
 </html>

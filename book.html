@@ -2,38 +2,318 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Отрывок из книги</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Отрывок из книги 'Таинственный Лес' - увлекательное чтение на 17yotk SITE">
+  <meta name="keywords" content="книга, чтение, таинственный лес, литература">
+  <meta name="author" content="17yotk">
+  <meta name="theme-color" content="#003366">
+  
+  <title>Книга: "Таинственный Лес" - 17yotk SITE</title>
   <link rel="stylesheet" href="book.css">
+  <link rel="icon" type="image/x-icon" href="Logo/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="Logo/favicon.ico">
+  
+  <!-- Навигация обратно на главную -->
+  <style>
+    .back-nav {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: rgba(0, 51, 102, 0.9);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .back-nav:hover {
+      background: rgba(0, 51, 102, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    @media (max-width: 768px) {
+      .back-nav {
+        top: 10px;
+        left: 10px;
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- Навигация назад -->
+  <a href="index.html" class="back-nav" aria-label="Вернуться на главную">
+    ← Главная
+  </a>
+
   <header>
     <h1>Книга: "Таинственный Лес"</h1>
     <nav>
       <ul>
-        <li><a href="#chapter1">Глава 1</a></li>
-        <li><a href="#chapter2">Глава 2</a></li>
+        <li><a href="#chapter1" aria-label="Перейти к главе 1">Глава 1</a></li>
+        <li><a href="#chapter2" aria-label="Перейти к главе 2">Глава 2</a></li>
+        <li><a href="#support" aria-label="Поддержать автора">Поддержка</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <section id="chapter1">
+    <section id="chapter1" class="chapter">
       <h2>Глава 1: Вход в лес</h2>
-      <img src="forest.jpg" alt="Темный лес">
-      <p><em>Сумерки сгущались</em>, когда <strong>Алексей</strong> подошёл к краю леса. <mark>Зловещая тишина</mark> окружала его.</p>
-      <p>Он остановился, чтобы <u>вдохнуть влажный воздух</u> и <code>осветить путь фонариком</code>.</p>
+      <div class="chapter-image">
+        <img src="images/photo3.png" alt="Темный таинственный лес" loading="lazy">
+        <div class="image-caption">Таинственный лес окутанный мглой</div>
+      </div>
+      
+      <div class="chapter-content">
+        <p><em>Сумерки сгущались</em>, когда <strong>Алексей</strong> подошёл к краю леса. <mark>Зловещая тишина</mark> окружала его, словно сам воздух застыл в ожидании чего-то неведомого.</p>
+        
+        <p>Он остановился, чтобы <u>вдохнуть влажный воздух</u> и <code>осветить путь фонариком</code>. Деревья вокруг казались живыми существами, их ветви тянулись к нему, словно пытаясь удержать от входа в их владения.</p>
+        
+        <blockquote>
+          "Каждый шаг в неизвестность - это шаг к открытию себя." - Древняя мудрость
+        </blockquote>
+        
+        <p>Алексей чувствовал, как его сердце учащенно билось. Он знал, что поворот назад уже невозможен. Тайна, которая манила его сюда, была сильнее страха.</p>
+      </div>
     </section>
 
-    <section id="chapter2">
+    <section id="chapter2" class="chapter">
       <h2>Глава 2: Шорохи в темноте</h2>
-      <img src="shadows.jpg" alt="Тени в лесу">
-      <p><strong>Что-то зашевелилось</strong> в кустах. Алексей замер. <i>"Кто здесь?"</i> — прошептал он.</p>
-      <p><s>Он хотел убежать</s>, но остался. <span class="highlight">Решимость победила страх.</span></p>
+      <div class="chapter-image">
+        <img src="images/photo2.jpg" alt="Тени в лесу" loading="lazy">
+        <div class="image-caption">Загадочные тени между деревьев</div>
+      </div>
+      
+      <div class="chapter-content">
+        <p><strong>Что-то зашевелилось</strong> в кустах. Алексей замер, напряг слух. <i>"Кто здесь?"</i> — прошептал он, но ответом ему была лишь тишина.</p>
+        
+        <p><s>Он хотел убежать</s>, но что-то удерживало его на месте. <span class="highlight">Решимость победила страх.</span> Он сделал еще один шаг вперед, и луч фонарика осветил странную тропинку, ведущую вглубь леса.</p>
+        
+        <div class="story-note">
+          <h4>Заметка автора:</h4>
+          <p>В этом месте читатель должен почувствовать напряжение главного героя. Лес - это не просто место действия, это живой организм со своими законами.</p>
+        </div>
+        
+        <p>Внезапно где-то вдалеке послышался звук - не то плач, не то пение. Алексей понял, что его приключение только начинается...</p>
+      </div>
+    </section>
+
+    <!-- Секция поддержки автора -->
+    <section id="support" class="support-section">
+      <h2>Поддержите автора</h2>
+      <p>Если вам понравился отрывок из книги "Таинственный Лес", вы можете поддержать автора и помочь в создании полной версии книги.</p>
+      
+      <div class="support-options">
+        <div class="support-card">
+          <h3>💳 Финансовая поддержка</h3>
+          <p>Помогите в издании полной версии книги</p>
+          <a href="index.html#support" class="support-btn">Поддержать</a>
+        </div>
+        
+        <div class="support-card">
+          <h3>📖 Предзаказ книги</h3>
+          <p>Закажите полную версию книги заранее</p>
+          <button class="support-btn" onclick="showNotification('Предзаказ будет доступен скоро!', 'info')">Предзаказать</button>
+        </div>
+        
+        <div class="support-card">
+          <h3>📢 Поделиться</h3>
+          <p>Расскажите друзьям о этой удивительной истории</p>
+          <button class="support-btn" onclick="shareStory()">Поделиться</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Секция комментариев -->
+    <section id="comments" class="comments-section">
+      <h2>Оставьте отзыв</h2>
+      <form class="comment-form" onsubmit="submitComment(event)">
+        <div class="form-group">
+          <label for="name">Ваше имя:</label>
+          <input type="text" id="name" name="name" required aria-describedby="name-help">
+          <small id="name-help">Как к вам обращаться?</small>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email (необязательно):</label>
+          <input type="email" id="email" name="email" aria-describedby="email-help">
+          <small id="email-help">Для ответа на ваш комментарий</small>
+        </div>
+        
+        <div class="form-group">
+          <label for="comment">Ваш отзыв:</label>
+          <textarea id="comment" name="comment" rows="4" required aria-describedby="comment-help" placeholder="Поделитесь впечатлениями от прочитанного..."></textarea>
+          <small id="comment-help">Что вы думаете о истории?</small>
+        </div>
+        
+        <div class="form-group">
+          <label>
+            <input type="checkbox" name="subscribe" value="1">
+            Уведомлять о новых главах
+          </label>
+        </div>
+        
+        <button type="submit" class="submit-btn">Отправить отзыв</button>
+      </form>
+      
+      <!-- Место для отображения комментариев -->
+      <div id="comments-list" class="comments-list">
+        <!-- Комментарии будут добавляться через JavaScript -->
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Автор проекта</p>
+  <footer class="book-footer">
+    <div class="footer-content">
+      <p>&copy; 2024 "Таинственный Лес" - 17yotk SITE. Все права защищены.</p>
+      <div class="footer-links">
+        <a href="index.html" aria-label="Вернуться на главную">Главная</a>
+        <a href="#chapter1" aria-label="К началу">Начало</a>
+        <a href="mailto:author@17yotk.site" aria-label="Связаться с автором">Автору</a>
+      </div>
+    </div>
   </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Функция для отправки комментария
+    function submitComment(event) {
+      event.preventDefault();
+      
+      const formData = new FormData(event.target);
+      const comment = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        text: formData.get('comment'),
+        subscribe: formData.get('subscribe') === '1',
+        timestamp: new Date().toISOString()
+      };
+      
+      // Сохранение в localStorage (в реальном проекте - отправка на сервер)
+      const comments = JSON.parse(localStorage.getItem('bookComments') || '[]');
+      comments.unshift(comment);
+      localStorage.setItem('bookComments', JSON.stringify(comments));
+      
+      // Отображение комментария
+      displayComment(comment);
+      
+      // Очистка формы
+      event.target.reset();
+      
+      // Уведомление
+      showNotification('Спасибо за отзыв!', 'success');
+    }
+    
+    // Функция для отображения комментария
+    function displayComment(comment) {
+      const commentsList = document.getElementById('comments-list');
+      const commentDiv = document.createElement('div');
+      commentDiv.className = 'comment-item';
+      
+      const date = new Date(comment.timestamp).toLocaleDateString('ru-RU', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      
+      commentDiv.innerHTML = `
+        <div class="comment-header">
+          <strong class="comment-author">${escapeHtml(comment.name)}</strong>
+          <span class="comment-date">${date}</span>
+        </div>
+        <div class="comment-text">${escapeHtml(comment.text)}</div>
+      `;
+      
+      commentsList.insertBefore(commentDiv, commentsList.firstChild);
+    }
+    
+    // Функция для безопасного отображения HTML
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    
+    // Функция для поделиться историей
+    function shareStory() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Таинственный Лес - увлекательная история',
+          text: 'Прочитайте отрывок из книги "Таинственный Лес" на 17yotk SITE',
+          url: window.location.href
+        }).catch(err => console.log('Ошибка при попытке поделиться:', err));
+      } else {
+        // Fallback для браузеров без поддержки Web Share API
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+          showNotification('Ссылка скопирована в буфер обмена!', 'success');
+        }).catch(() => {
+          showNotification('Не удалось скопировать ссылку', 'error');
+        });
+      }
+    }
+    
+    // Функция для уведомлений (простая версия)
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+        color: white;
+        border-radius: 10px;
+        z-index: 2000;
+        font-size: 14px;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.3s ease;
+      `;
+      notification.textContent = message;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateX(0)';
+      }, 100);
+      
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
+    }
+    
+    // Загрузка существующих комментариев при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+      const comments = JSON.parse(localStorage.getItem('bookComments') || '[]');
+      comments.forEach(displayComment);
+      
+      // Плавная прокрутка для навигации
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+      
+      console.log('Book page loaded successfully!');
+    });
+  </script>
 </body>
 </html>
