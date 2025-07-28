@@ -155,6 +155,9 @@ function sendAdminNotification($data, $transaction_id, $order_id) {
     $admin_email = 'admin@17yotk.net';
     $subject = '[17yotk] Новая покупка доната - ' . $data['package_name'];
     
+    // Log the attempt
+    error_log("Attempting to send email to: $admin_email");
+    
     $message = "
     <html>
     <head>
@@ -217,12 +220,40 @@ function sendAdminNotification($data, $transaction_id, $order_id) {
     $headers = [
         'MIME-Version: 1.0',
         'Content-type: text/html; charset=UTF-8',
-        'From: noreply@17yotk.ru',
-        'Reply-To: noreply@17yotk.ru',
+        'From: noreply@17yotk.net',
+        'Reply-To: noreply@17yotk.net',
         'X-Mailer: PHP/' . phpversion()
     ];
     
-    return mail($admin_email, $subject, $message, implode("\r\n", $headers));
+    // First try standard mail() function
+    $result = mail($admin_email, $subject, $message, implode("\r\n", $headers));
+    
+    // Log the result
+    if ($result) {
+        error_log("Email sent successfully to: $admin_email");
+    } else {
+        error_log("Failed to send email to: $admin_email with mail() function");
+        
+        // Try alternative method using a webhook/API if available
+        $webhook_result = sendViaWebhook($data, $transaction_id, $order_id);
+        
+        if (!$webhook_result) {
+            // Save to file as backup
+            $backup_file = '/tmp/donations_' . date('Y-m-d') . '.log';
+            $log_entry = "\n" . date('Y-m-d H:i:s') . " - Order: $order_id\n";
+            $log_entry .= "Player: {$data['player_name']}, Package: {$data['package_name']}, Price: {$data['package_price']} ₽\n";
+            $log_entry .= "Email: {$data['email']}, Method: {$data['payment_method']}\n";
+            $log_entry .= "Transaction: $transaction_id\n";
+            $log_entry .= "Commands: " . getMinecraftCommands($data['package_name'], $data['player_name']) . "\n";
+            $log_entry .= str_repeat('-', 50) . "\n";
+            file_put_contents($backup_file, $log_entry, FILE_APPEND | LOCK_EX);
+            error_log("Backup saved to: $backup_file");
+        }
+        
+        $result = $webhook_result;
+    }
+    
+    return $result;
 }
 
 /**
@@ -348,5 +379,54 @@ function getMinecraftCommands($package_name, $player_name) {
     $package_commands = $commands[$package_name] ?? ["echo 'Команды для пакета {$package_name} не найдены'"];
     
     return implode("\n", $package_commands);
+}
+
+/**
+ * Send notification via webhook (alternative to email)
+ */
+function sendViaWebhook($data, $transaction_id, $order_id) {
+    // You can configure webhook URL here
+    $webhook_url = ''; // Leave empty if not using webhook
+    
+    if (empty($webhook_url)) {
+        return false;
+    }
+    
+    $payload = [
+        'order_id' => $order_id,
+        'transaction_id' => $transaction_id,
+        'player_name' => $data['player_name'],
+        'package_name' => $data['package_name'],
+        'package_price' => $data['package_price'],
+        'payment_method' => $data['payment_method'],
+        'customer_email' => $data['email'],
+        'timestamp' => date('Y-m-d H:i:s'),
+        'minecraft_commands' => getMinecraftCommands($data['package_name'], $data['player_name'])
+    ];
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $webhook_url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'User-Agent: 17yotk-donation-system'
+    ]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    
+    $response = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    
+    $success = ($http_code >= 200 && $http_code < 300);
+    
+    if ($success) {
+        error_log("Webhook sent successfully to: $webhook_url");
+    } else {
+        error_log("Failed to send webhook to: $webhook_url (HTTP: $http_code)");
+    }
+    
+    return $success;
 }
 ?>
