@@ -3,7 +3,7 @@
   "short_name": "17yotk Донат",
   "description": "Официальный донат магазин сервера 17yotk MC Server. Получите уникальные привилегии и поддержите развитие сервера.",
   "version": "2.0.0",
-  "start_url": "/donate.html",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
@@ -45,7 +45,7 @@
       "name": "Донат пакеты",
       "short_name": "Привилегии",
       "description": "Просмотр доступных донат пакетов",
-      "url": "/donate.html#packages",
+      "url": "/#packages",
       "icons": [
         {
           "src": "images/logo.png",
@@ -57,7 +57,7 @@
       "name": "Поддержка",
       "short_name": "Помощь",
       "description": "Связаться с поддержкой",
-      "url": "/donate.html#support",
+      "url": "/#support",
       "icons": [
         {
           "src": "images/logo.png",

@@ -9,7 +9,8 @@ const DYNAMIC_CACHE = `${CACHE_NAME}-dynamic`;
 
 // Static resources to cache
 const STATIC_RESOURCES = [
-    '/donate.html',
+    '/',
+    '/index.html',
     '/donate-styles.css',
     '/donate-script.js',
     '/manifest.json',
@@ -226,7 +227,7 @@ async function getOfflineFallback(request) {
     // For HTML pages, return the main page
     if (request.headers.get('accept')?.includes('text/html')) {
         const cache = await caches.open(STATIC_CACHE);
-        return await cache.match('/donate.html') || createOfflinePage();
+        return await cache.match('/index.html') || createOfflinePage();
     }
     
     // For images, return a placeholder
