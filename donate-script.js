@@ -9,6 +9,7 @@ const CONFIG = {
     SERVER_IP: '199.83.103.226:25663',
     API_ENDPOINT: '/api/donations',
     DATABASE_API: '/database.php', // API для работы с базой данных
+    SERVER_STATUS_API: '/server_monitor.php',
     STRIPE_PUBLIC_KEY: 'pk_test_your_stripe_key_here', // Замените на реальный ключ Stripe
     PAYPAL_CLIENT_ID: 'YOUR_PAYPAL_CLIENT_ID', // Замените на реальный Client ID PayPal
     WEBSOCKET_URL: 'wss://17yotk.ru/ws',
@@ -1553,20 +1554,114 @@ function handlePWAInstall(event) {
  */
 async function updateServerStatus() {
     try {
-        const response = await fetch(`${CONFIG.API_ENDPOINT}/server-status`);
-        const data = await response.json();
+        // Try primary monitoring API
+        let response = await fetch(CONFIG.SERVER_STATUS_API);
+        let result = await response.json();
         
-        state.serverOnline = data.online;
-        state.playerCount = data.players || 0;
+        // If primary fails, try fallback
+        if (!result.success) {
+            response = await fetch(`${CONFIG.DATABASE_API}?action=server_stats`);
+            result = await response.json();
+        }
+        
+        if (result.success && result.data) {
+            const stats = result.data;
+            state.serverOnline = stats.server_status === 'online';
+            state.playerCount = parseInt(stats.online_players) || 0;
+            
+            // Update stats display
+            updateServerStatsDisplay(stats);
+            
+            // Update last check time
+            updateLastCheckTime();
+        } else {
+            // No data or error - assume offline
+            state.serverOnline = false;
+            state.playerCount = 0;
+        }
         
         // Update UI
         updateServerStatusUI();
         
     } catch (error) {
         console.error('Failed to fetch server status:', error);
-        state.serverOnline = false;
+        
+        // Try fallback database API
+        try {
+            const response = await fetch(`${CONFIG.DATABASE_API}?action=server_stats`);
+            const result = await response.json();
+            
+            if (result.success && result.data) {
+                const stats = result.data;
+                state.serverOnline = stats.server_status === 'online';
+                state.playerCount = parseInt(stats.online_players) || 0;
+                updateServerStatsDisplay(stats);
+            } else {
+                state.serverOnline = false;
+                state.playerCount = 0;
+            }
+        } catch (fallbackError) {
+            console.error('Fallback server status check failed:', fallbackError);
+            state.serverOnline = false;
+            state.playerCount = 0;
+        }
+        
         updateServerStatusUI();
     }
+}
+
+/**
+ * Update server statistics display
+ */
+function updateServerStatsDisplay(stats) {
+    // Update hero stats
+    const heroStats = document.querySelector('.hero-stats');
+    if (heroStats) {
+        const statValues = heroStats.querySelectorAll('.stat-value');
+        
+        if (statValues[0]) {
+            statValues[0].textContent = stats.online_players || '0';
+        }
+        
+        if (statValues[1]) {
+            statValues[1].textContent = stats.max_players || '100';
+        }
+    }
+    
+    // Update additional server info if available
+    if (stats.version) {
+        const versionElements = document.querySelectorAll('.server-version');
+        versionElements.forEach(el => {
+            el.textContent = stats.version;
+        });
+    }
+    
+    if (stats.motd) {
+        const motdElements = document.querySelectorAll('.server-motd');
+        motdElements.forEach(el => {
+            el.textContent = stats.motd;
+        });
+    }
+    
+    if (stats.latency) {
+        const latencyElements = document.querySelectorAll('.server-latency');
+        latencyElements.forEach(el => {
+            el.textContent = `${stats.latency}ms`;
+        });
+    }
+}
+
+/**
+ * Update last check time display
+ */
+function updateLastCheckTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('ru-RU');
+    
+    const lastCheckElements = document.querySelectorAll('.last-check-time');
+    lastCheckElements.forEach(el => {
+        el.textContent = `Обновлено: ${timeString}`;
+    });
 }
 
 /**
@@ -1575,6 +1670,8 @@ async function updateServerStatus() {
 function updateServerStatusUI() {
     // Update status indicator
     if (elements.serverStatus) {
+        elements.serverStatus.className = state.serverOnline ? 
+            'status-indicator online' : 'status-indicator offline';
         elements.serverStatus.style.backgroundColor = state.serverOnline ? 
             'var(--success-color)' : 'var(--error-color)';
     }
@@ -1590,6 +1687,13 @@ function updateServerStatusUI() {
     if (elements.footerPlayerCount) {
         elements.footerPlayerCount.textContent = playerCountText;
     }
+    
+    // Update server status text
+    const statusText = state.serverOnline ? 'Онлайн' : 'Оффлайн';
+    const statusElements = document.querySelectorAll('.server-status-text');
+    statusElements.forEach(el => {
+        el.textContent = statusText;
+    });
 }
 
 /**

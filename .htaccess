@@ -154,7 +154,7 @@ Options -Indexes
 </FilesMatch>
 
 # Allow only specific PHP files
-<FilesMatch "^(index|database|payment_handler|test_email)\.php$">
+<FilesMatch "^(index|database|payment_handler|server_monitor)\.php$">
     <IfModule mod_authz_core.c>
         Require all granted
     </IfModule>
