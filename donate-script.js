@@ -6,7 +6,7 @@
 // Configuration
 // ВАЖНО: Замените тестовые ключи на реальные перед продакшеном!
 const CONFIG = {
-    SERVER_IP: 'mc.17yotk.ru',
+    SERVER_IP: '199.83.103.226:25663',
     API_ENDPOINT: '/api/donations',
     STRIPE_PUBLIC_KEY: 'pk_test_your_stripe_key_here', // Замените на реальный ключ Stripe
     PAYPAL_CLIENT_ID: 'YOUR_PAYPAL_CLIENT_ID', // Замените на реальный Client ID PayPal
@@ -176,6 +176,9 @@ function setupEventListeners() {
     
     // Smooth scrolling for navigation
     setupSmoothScrolling();
+    
+    // Close mobile menu on navigation link click
+    setupMobileMenuNavigation();
     
     // Scroll animations
     setupScrollAnimations();
@@ -708,14 +711,62 @@ function toggleMobileMenu() {
     const isActive = elements.nav.classList.contains('active');
     
     if (isActive) {
-        elements.nav.classList.remove('active');
-        elements.mobileMenuToggle.classList.remove('active');
-        document.body.style.overflow = '';
+        closeMobileMenu();
     } else {
-        elements.nav.classList.add('active');
-        elements.mobileMenuToggle.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        openMobileMenu();
     }
+}
+
+/**
+ * Open mobile menu
+ */
+function openMobileMenu() {
+    elements.nav.classList.add('active');
+    elements.mobileMenuToggle.classList.add('active');
+    elements.mobileMenuToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    
+    // Close menu when clicking outside
+    setTimeout(() => {
+        document.addEventListener('click', closeMobileMenuOutside);
+    }, 100);
+}
+
+/**
+ * Close mobile menu
+ */
+function closeMobileMenu() {
+    elements.nav.classList.remove('active');
+    elements.mobileMenuToggle.classList.remove('active');
+    elements.mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    document.removeEventListener('click', closeMobileMenuOutside);
+}
+
+/**
+ * Close mobile menu when clicking outside
+ */
+function closeMobileMenuOutside(event) {
+    if (!elements.nav.contains(event.target) && !elements.mobileMenuToggle.contains(event.target)) {
+        closeMobileMenu();
+    }
+}
+
+/**
+ * Setup mobile menu navigation
+ */
+function setupMobileMenuNavigation() {
+    if (!elements.nav) return;
+    
+    const navLinks = elements.nav.querySelectorAll('a[href^="#"]');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            // Close mobile menu when navigation link is clicked
+            if (elements.nav.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+    });
 }
 
 /**

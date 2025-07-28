@@ -109,8 +109,8 @@ const API_CONFIG = {
     minecraft: {
         // Server connection
         server: {
-            host: process.env.MC_HOST || 'localhost',
-            port: process.env.MC_PORT || 25565,
+            host: process.env.MC_HOST || '199.83.103.226',
+            port: process.env.MC_PORT || 25663,
             rconPort: process.env.MC_RCON_PORT || 25575,
             rconPassword: process.env.MC_RCON_PASSWORD || 'your_rcon_password'
         },
