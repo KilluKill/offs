@@ -668,7 +668,8 @@ function validateForm() {
     }
     
     if (!data.agreement) {
-        showNotification('Необходимо согласиться с условиями', 'error');
+        showNotification('Необходимо согласиться с условиями сервера', 'error');
+        focusField('agreement');
         return null;
     }
     
@@ -697,8 +698,24 @@ function validateNickname(nickname) {
 function focusField(fieldName) {
     const field = document.getElementById(fieldName);
     if (field) {
-        field.focus();
-        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (field.type === 'checkbox') {
+            // For checkboxes, scroll to view and highlight
+            field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const label = field.closest('.checkbox-label');
+            if (label) {
+                label.style.backgroundColor = 'rgba(255, 0, 0, 0.1)';
+                label.style.borderRadius = 'var(--radius-md)';
+                label.style.padding = 'var(--space-2)';
+                setTimeout(() => {
+                    label.style.backgroundColor = '';
+                    label.style.borderRadius = '';
+                    label.style.padding = '';
+                }, 3000);
+            }
+        } else {
+            field.focus();
+            field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     }
 }
 
