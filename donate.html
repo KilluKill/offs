@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17yotk MC Server - Донат Магазин</title>
+    <link rel="stylesheet" href="donate-styles.css">
+    <link rel="icon" type="image/x-icon" href="Logo/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Minecraft:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="images/logo.png" alt="Server Logo">
+                    <h1>17yotk MC Server</h1>
+                </div>
+                <nav class="nav">
+                    <a href="index.html">Главная</a>
+                    <a href="#packages">Донат пакеты</a>
+                    <a href="#payment">Оплата</a>
+                    <a href="#contact">Контакты</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h2>Поддержи сервер!</h2>
+                <p>Получи уникальные привилегии и помоги развитию нашего Minecraft сервера</p>
+                <a href="#packages" class="cta-button">
+                    <i class="fas fa-gem"></i>
+                    Выбрать донат
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Packages -->
+    <section id="packages" class="packages">
+        <div class="container">
+            <h2 class="section-title">Донат Пакеты</h2>
+            <div class="packages-grid">
+                
+                <!-- VIP Package -->
+                <div class="package-card vip">
+                    <div class="package-header">
+                        <i class="fas fa-star"></i>
+                        <h3>VIP</h3>
+                        <div class="price">199₽</div>
+                    </div>
+                    <div class="package-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Префикс [VIP]</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Цветной ник</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>5 дополнительных домов</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Команда /fly на 30 минут</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Доступ к VIP региону</span>
+                        </div>
+                    </div>
+                    <button class="buy-button" onclick="selectPackage('VIP', 199)">
+                        <i class="fas fa-shopping-cart"></i>
+                        Купить VIP
+                    </button>
+                </div>
+
+                <!-- PREMIUM Package -->
+                <div class="package-card premium popular">
+                    <div class="popular-badge">Популярный</div>
+                    <div class="package-header">
+                        <i class="fas fa-crown"></i>
+                        <h3>PREMIUM</h3>
+                        <div class="price">399₽</div>
+                    </div>
+                    <div class="package-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Все привилегии VIP</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Префикс [PREMIUM]</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>15 дополнительных домов</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Команда /fly на 1 час</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Кит с алмазной броней</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Приоритет входа на сервер</span>
+                        </div>
+                    </div>
+                    <button class="buy-button" onclick="selectPackage('PREMIUM', 399)">
+                        <i class="fas fa-shopping-cart"></i>
+                        Купить PREMIUM
+                    </button>
+                </div>
+
+                <!-- ELITE Package -->
+                <div class="package-card elite">
+                    <div class="package-header">
+                        <i class="fas fa-diamond"></i>
+                        <h3>ELITE</h3>
+                        <div class="price">699₽</div>
+                    </div>
+                    <div class="package-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Все привилегии PREMIUM</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Префикс [ELITE]</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Безлимитные дома</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Постоянный /fly</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Кит с незеритовой броней</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Личный регион 100x100</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Команды творчества</span>
+                        </div>
+                    </div>
+                    <button class="buy-button" onclick="selectPackage('ELITE', 699)">
+                        <i class="fas fa-shopping-cart"></i>
+                        Купить ELITE
+                    </button>
+                </div>
+
+                <!-- LEGEND Package -->
+                <div class="package-card legend">
+                    <div class="package-header">
+                        <i class="fas fa-fire"></i>
+                        <h3>LEGEND</h3>
+                        <div class="price">999₽</div>
+                    </div>
+                    <div class="package-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Все привилегии ELITE</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Префикс [LEGEND]</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Уникальные эффекты частиц</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Доступ к админ командам</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Личный регион 200x200</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Особый чат канал</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Возможность создавать варпы</span>
+                        </div>
+                    </div>
+                    <button class="buy-button" onclick="selectPackage('LEGEND', 999)">
+                        <i class="fas fa-shopping-cart"></i>
+                        Купить LEGEND
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Items -->
+    <section class="additional-items">
+        <div class="container">
+            <h2 class="section-title">Дополнительные товары</h2>
+            <div class="items-grid">
+                <div class="item-card">
+                    <i class="fas fa-coins"></i>
+                    <h3>1000 игровых монет</h3>
+                    <div class="price">99₽</div>
+                    <button class="buy-button" onclick="selectPackage('Монеты 1000', 99)">Купить</button>
+                </div>
+                <div class="item-card">
+                    <i class="fas fa-hammer"></i>
+                    <h3>Набор инструментов</h3>
+                    <div class="price">149₽</div>
+                    <button class="buy-button" onclick="selectPackage('Набор инструментов', 149)">Купить</button>
+                </div>
+                <div class="item-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Зачарованная броня</h3>
+                    <div class="price">249₽</div>
+                    <button class="buy-button" onclick="selectPackage('Зачарованная броня', 249)">Купить</button>
+                </div>
+                <div class="item-card">
+                    <i class="fas fa-home"></i>
+                    <h3>Готовый дом</h3>
+                    <div class="price">199₽</div>
+                    <button class="buy-button" onclick="selectPackage('Готовый дом', 199)">Купить</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section id="payment" class="payment">
+        <div class="container">
+            <h2 class="section-title">Способы оплаты</h2>
+            <div class="payment-methods">
+                <div class="payment-method">
+                    <i class="fab fa-cc-visa"></i>
+                    <span>Банковские карты</span>
+                </div>
+                <div class="payment-method">
+                    <i class="fab fa-paypal"></i>
+                    <span>PayPal</span>
+                </div>
+                <div class="payment-method">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Мобильный платеж</span>
+                </div>
+                <div class="payment-method">
+                    <i class="fab fa-bitcoin"></i>
+                    <span>Криптовалюта</span>
+                </div>
+            </div>
+            
+            <div class="purchase-form" id="purchaseForm" style="display: none;">
+                <h3>Оформление покупки</h3>
+                <div class="selected-package" id="selectedPackage"></div>
+                <form id="donateForm">
+                    <div class="form-group">
+                        <label for="nickname">Ник в игре:</label>
+                        <input type="text" id="nickname" name="nickname" required placeholder="Введите ваш ник">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentMethod">Способ оплаты:</label>
+                        <select id="paymentMethod" name="paymentMethod" required>
+                            <option value="">Выберите способ оплаты</option>
+                            <option value="card">Банковская карта</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="mobile">Мобильный платеж</option>
+                            <option value="crypto">Криптовалюта</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-button">
+                        <i class="fas fa-credit-card"></i>
+                        Перейти к оплате
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-envelope"></i> admin@17yotk.ru</p>
+                    <p><i class="fab fa-discord"></i> Discord: 17yotk#1234</p>
+                    <p><i class="fas fa-server"></i> IP: mc.17yotk.ru</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Информация</h3>
+                    <p>Все покупки мгновенно активируются на сервере</p>
+                    <p>Поддержка 24/7</p>
+                    <p>Гарантия возврата средств</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Правила</h3>
+                    <p>Перед покупкой ознакомьтесь с правилами сервера</p>
+                    <p>Возврат средств возможен только в случае технических проблем</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 17yotk MC Server. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="donate-script.js"></script>
+</body>
+</html>
