@@ -4,11 +4,12 @@
  */
 
 // Configuration
+// ВАЖНО: Замените тестовые ключи на реальные перед продакшеном!
 const CONFIG = {
     SERVER_IP: 'mc.17yotk.ru',
     API_ENDPOINT: '/api/donations',
-    STRIPE_PUBLIC_KEY: 'pk_test_your_stripe_key_here',
-    PAYPAL_CLIENT_ID: 'YOUR_PAYPAL_CLIENT_ID',
+    STRIPE_PUBLIC_KEY: 'pk_test_your_stripe_key_here', // Замените на реальный ключ Stripe
+    PAYPAL_CLIENT_ID: 'YOUR_PAYPAL_CLIENT_ID', // Замените на реальный Client ID PayPal
     WEBSOCKET_URL: 'wss://17yotk.ru/ws',
     
     // Animation settings
