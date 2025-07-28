@@ -91,7 +91,7 @@ async function init() {
         // Hide loading screen
         hideLoadingScreen();
         
-        console.log('🎮 Donation system initialized successfully');
+        // Donation system initialized successfully
     } catch (error) {
         console.error('❌ Initialization failed:', error);
         showNotification('Ошибка инициализации системы', 'error');
@@ -148,7 +148,7 @@ async function initializeComponents() {
  */
 async function loadDatabaseData() {
     try {
-        console.log('🔄 Loading data from database...');
+        // Loading data from database...
         
         const response = await fetch(`${CONFIG.DATABASE_API}?action=all`);
         const result = await response.json();
@@ -181,7 +181,7 @@ async function loadDatabaseData() {
                 updateNewsFromDatabase(data.news);
             }
             
-            console.log('✅ Database data loaded successfully');
+            // Database data loaded successfully
         } else {
             console.error('❌ Failed to load database data:', result.error);
             showNotification('Ошибка загрузки данных', 'error');
@@ -480,11 +480,11 @@ function setupEventListeners() {
  * Package selection handler
  */
 function selectPackage(name, price, type) {
-    console.log('🎮 Selecting package:', { name, price, type });
+    // Selecting package
     
     try {
         state.selectedPackage = { name, price, type };
-        console.log('✅ Package selected:', state.selectedPackage);
+        // Package selected successfully
         
         // Update selected package display
         updateSelectedPackageDisplay();
@@ -723,7 +723,7 @@ function focusField(fieldName) {
  * Process payment - send data to admin for manual processing
  */
 async function processPayment(formData) {
-    console.log('🔄 Processing payment...', formData);
+    // Processing payment...
     
     if (!state.selectedPackage) {
         throw new Error('Пакет не выбран');

@@ -4,10 +4,17 @@
  * Sends purchase data to admin for manual processing
  */
 
+define('SECURE_ACCESS', true);
+require_once 'config.php';
+require_once 'security.php';
+
+$security = Security::getInstance();
+$security->applySecurityHeaders();
+
+// Rate limiting
+$security->checkRateLimit(null, API_RATE_LIMIT, 60);
+
 header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -35,17 +42,46 @@ foreach ($required_fields as $field) {
     }
 }
 
-// Sanitize data
-$player_name = htmlspecialchars(trim($data['player_name']));
-$package_name = htmlspecialchars(trim($data['package_name']));
-$package_price = floatval($data['package_price']);
-$payment_method = htmlspecialchars(trim($data['payment_method']));
-$customer_email = filter_var(trim($data['email']), FILTER_VALIDATE_EMAIL);
-$transaction_id = isset($data['transaction_id']) ? htmlspecialchars(trim($data['transaction_id'])) : 'PENDING_' . time();
+// Check for suspicious activity
+if ($security->detectSuspiciousActivity($data)) {
+    http_response_code(403);
+    echo json_encode(['success' => false, 'error' => 'Suspicious activity detected']);
+    exit;
+}
 
+// Sanitize and validate data
+$player_name = $security->sanitizeInput($data['player_name']);
+$package_name = $security->sanitizeInput($data['package_name']);
+$package_price = floatval($data['package_price']);
+$payment_method = $security->sanitizeInput($data['payment_method']);
+$customer_email = $security->validateEmail($data['email']);
+$transaction_id = isset($data['transaction_id']) ? $security->sanitizeInput($data['transaction_id']) : 'PENDING_' . time();
+
+// Validate Minecraft username
+if (!$security->validateMinecraftUsername($player_name)) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'error' => 'Invalid Minecraft username']);
+    exit;
+}
+
+// Validate email
 if (!$customer_email) {
     http_response_code(400);
     echo json_encode(['success' => false, 'error' => 'Invalid email format']);
+    exit;
+}
+
+// Validate payment method
+if (!in_array($payment_method, ALLOWED_PAYMENT_METHODS)) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'error' => 'Invalid payment method']);
+    exit;
+}
+
+// Validate donation amount
+if ($package_price < MIN_DONATION_AMOUNT || $package_price > MAX_DONATION_AMOUNT) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'error' => 'Invalid donation amount']);
     exit;
 }
 

@@ -3,65 +3,114 @@
  * Database connection and API for 17yotk MC Server
  */
 
+define('SECURE_ACCESS', true);
+require_once 'config.php';
+require_once 'security.php';
+
 class Database {
-    private $host = 'localhost';
-    private $dbname = 'a17yotknet_minecraft_site';
-    private $username = 'a17yotknet_admin';
-    private $password = 'A31204992306a';
     private $pdo;
+    private $security;
+    private $cache = [];
     
     public function __construct() {
+        $this->security = Security::getInstance();
+        $this->connectDatabase();
+    }
+    
+    private function connectDatabase() {
         try {
-            $this->pdo = new PDO(
-                "mysql:host={$this->host};dbname={$this->dbname};charset=utf8mb4",
-                $this->username,
-                $this->password,
-                [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::ATTR_EMULATE_PREPARES => false
-                ]
+            $dsn = sprintf(
+                "mysql:host=%s;dbname=%s;charset=%s",
+                DB_HOST,
+                DB_NAME,
+                DB_CHARSET
             );
+            
+            $this->pdo = new PDO($dsn, DB_USER, DB_PASS, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+                PDO::ATTR_PERSISTENT => false,
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES " . DB_CHARSET . " COLLATE utf8mb4_unicode_ci"
+            ]);
+            
+            // Set SQL mode for better security
+            $this->pdo->exec("SET sql_mode = 'STRICT_TRANS_TABLES,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO'");
+            
         } catch (PDOException $e) {
-            die("Database connection failed: " . $e->getMessage());
+            $this->security->logSecurityEvent('database_connection_failed', [
+                'error' => $e->getMessage()
+            ]);
+            
+            if (DEVELOPMENT_MODE) {
+                die("Database connection failed: " . $e->getMessage());
+            } else {
+                die("Database connection failed. Please try again later.");
+            }
         }
+    }
+    
+    /**
+     * Get cached data or fetch from database
+     */
+    private function getCachedData($key, $callback) {
+        if (CACHE_ENABLED && isset($this->cache[$key])) {
+            $cached = $this->cache[$key];
+            if (time() - $cached['timestamp'] < CACHE_DURATION) {
+                return $cached['data'];
+            }
+        }
+        
+        $data = $callback();
+        
+        if (CACHE_ENABLED) {
+            $this->cache[$key] = [
+                'data' => $data,
+                'timestamp' => time()
+            ];
+        }
+        
+        return $data;
     }
     
     /**
      * Get all privileges with their features
      */
     public function getPrivileges() {
-        $sql = "SELECT p.*, 
-                GROUP_CONCAT(
-                    CONCAT(pf.feature_name, '|', IFNULL(pf.feature_description, ''))
-                    ORDER BY pf.sort_order SEPARATOR ';;'
-                ) as features
-                FROM privileges p
-                LEFT JOIN privilege_features pf ON p.id = pf.privilege_id
-                WHERE p.is_active = 1
-                GROUP BY p.id
-                ORDER BY p.sort_order";
-        
-        $stmt = $this->pdo->query($sql);
-        $privileges = $stmt->fetchAll();
-        
-        // Parse features
-        foreach ($privileges as &$privilege) {
-            $features = [];
-            if ($privilege['features']) {
-                $featureList = explode(';;', $privilege['features']);
-                foreach ($featureList as $feature) {
-                    $parts = explode('|', $feature);
-                    $features[] = [
-                        'name' => $parts[0],
-                        'description' => isset($parts[1]) ? $parts[1] : ''
-                    ];
+        return $this->getCachedData('privileges', function() {
+            $sql = "SELECT p.*, 
+                    GROUP_CONCAT(
+                        CONCAT(pf.feature_name, '|', IFNULL(pf.feature_description, ''))
+                        ORDER BY pf.sort_order SEPARATOR ';;'
+                    ) as features
+                    FROM privileges p
+                    LEFT JOIN privilege_features pf ON p.id = pf.privilege_id
+                    WHERE p.is_active = 1
+                    GROUP BY p.id
+                    ORDER BY p.sort_order";
+            
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $privileges = $stmt->fetchAll();
+            
+            // Parse features
+            foreach ($privileges as &$privilege) {
+                $features = [];
+                if ($privilege['features']) {
+                    $featureList = explode(';;', $privilege['features']);
+                    foreach ($featureList as $feature) {
+                        $parts = explode('|', $feature);
+                        $features[] = [
+                            'name' => $parts[0],
+                            'description' => isset($parts[1]) ? $parts[1] : ''
+                        ];
+                    }
                 }
+                $privilege['features'] = $features;
             }
-            $privilege['features'] = $features;
-        }
-        
-        return $privileges;
+            
+            return $privileges;
+        });
     }
     
     /**
@@ -166,12 +215,15 @@ class Database {
 
 // API endpoint
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $security = Security::getInstance();
+    $security->applySecurityHeaders();
+    $security->checkRateLimit(null, API_RATE_LIMIT, 60);
+    
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin: *');
     
     $db = new Database();
     
-    $action = $_GET['action'] ?? 'all';
+    $action = $security->sanitizeInput($_GET['action'] ?? 'all');
     
     try {
         switch ($action) {

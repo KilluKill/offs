@@ -42,12 +42,12 @@ const NO_CACHE_PATTERNS = [
  * Install event - cache static resources
  */
 self.addEventListener('install', event => {
-    console.log('🔧 Service Worker installing...');
+    // Service Worker installing...
     
     event.waitUntil(
         caches.open(STATIC_CACHE)
             .then(cache => {
-                console.log('📦 Caching static resources...');
+                // Caching static resources...
                 return cache.addAll(STATIC_RESOURCES);
             })
             .then(() => {
