@@ -8,6 +8,7 @@
 const CONFIG = {
     SERVER_IP: '199.83.103.226:25663',
     API_ENDPOINT: '/api/donations',
+    DATABASE_API: '/database.php', // API для работы с базой данных
     STRIPE_PUBLIC_KEY: 'pk_test_your_stripe_key_here', // Замените на реальный ключ Stripe
     PAYPAL_CLIENT_ID: 'YOUR_PAYPAL_CLIENT_ID', // Замените на реальный Client ID PayPal
     WEBSOCKET_URL: 'wss://17yotk.ru/ws',
@@ -120,6 +121,9 @@ function cacheDOMElements() {
  * Initialize all components
  */
 async function initializeComponents() {
+    // Load data from database
+    await loadDatabaseData();
+    
     // Initialize payment processors
     await initializePaymentProcessors();
     
@@ -137,6 +141,281 @@ async function initializeComponents() {
     
     // Setup form validation
     initializeFormValidation();
+}
+
+/**
+ * Load data from database
+ */
+async function loadDatabaseData() {
+    try {
+        console.log('🔄 Loading data from database...');
+        
+        const response = await fetch(`${CONFIG.DATABASE_API}?action=all`);
+        const result = await response.json();
+        
+        if (result.success) {
+            const data = result.data;
+            
+            // Update packages from database
+            if (data.privileges) {
+                await updatePackagesFromDatabase(data.privileges);
+            }
+            
+            // Update items from database
+            if (data.game_items) {
+                await updateItemsFromDatabase(data.game_items);
+            }
+            
+            // Update server info
+            if (data.server_info) {
+                updateServerInfoFromDatabase(data.server_info);
+            }
+            
+            // Update server stats
+            if (data.server_stats) {
+                updateServerStatsFromDatabase(data.server_stats);
+            }
+            
+            // Update news
+            if (data.news) {
+                updateNewsFromDatabase(data.news);
+            }
+            
+            console.log('✅ Database data loaded successfully');
+        } else {
+            console.error('❌ Failed to load database data:', result.error);
+            showNotification('Ошибка загрузки данных', 'error');
+        }
+    } catch (error) {
+        console.error('❌ Database connection error:', error);
+        showNotification('Ошибка подключения к базе данных', 'error');
+    }
+}
+
+/**
+ * Update packages section from database
+ */
+async function updatePackagesFromDatabase(privileges) {
+    const packagesGrid = document.querySelector('.packages-grid');
+    if (!packagesGrid) return;
+    
+    packagesGrid.innerHTML = '';
+    
+    privileges.forEach(privilege => {
+        const packageCard = createPackageCard(privilege);
+        packagesGrid.appendChild(packageCard);
+    });
+}
+
+/**
+ * Create package card from database data
+ */
+function createPackageCard(privilege) {
+    const card = document.createElement('div');
+    card.className = 'package-card';
+    card.style.setProperty('--package-color', privilege.color);
+    
+    const featuresHtml = privilege.features.map(feature => 
+        `<li><i class="fas fa-check"></i> ${feature.name}</li>`
+    ).join('');
+    
+    card.innerHTML = `
+        <div class="package-header">
+            <div class="package-icon">
+                <i class="${privilege.icon}"></i>
+            </div>
+            <h3>${privilege.display_name}</h3>
+            <div class="package-price">
+                <span class="price">${privilege.price}</span>
+                <span class="currency">₽</span>
+            </div>
+        </div>
+        <div class="package-description">
+            <p>${privilege.description}</p>
+        </div>
+        <ul class="package-features">
+            ${featuresHtml}
+        </ul>
+        <button class="btn btn-primary package-btn" 
+                onclick="selectPackage('${privilege.display_name}', ${privilege.price}, '${privilege.name}')">
+            <i class="fas fa-shopping-cart"></i>
+            Выбрать пакет
+        </button>
+    `;
+    
+    return card;
+}
+
+/**
+ * Update items section from database
+ */
+async function updateItemsFromDatabase(items) {
+    const itemsGrid = document.querySelector('.items-grid');
+    if (!itemsGrid) return;
+    
+    itemsGrid.innerHTML = '';
+    
+    items.forEach(item => {
+        const itemCard = createItemCard(item);
+        itemsGrid.appendChild(itemCard);
+    });
+}
+
+/**
+ * Create item card from database data
+ */
+function createItemCard(item) {
+    const card = document.createElement('div');
+    card.className = 'item-card';
+    
+    card.innerHTML = `
+        <div class="item-icon">
+            <i class="${item.icon}"></i>
+        </div>
+        <h4>${item.display_name}</h4>
+        <p class="item-description">${item.description}</p>
+        <div class="item-price">
+            <span class="price">${item.price}</span>
+            <span class="currency">₽</span>
+        </div>
+        <button class="btn btn-secondary item-btn" 
+                onclick="selectPackage('${item.display_name}', ${item.price}, '${item.category}')">
+            <i class="fas fa-plus"></i>
+            Добавить
+        </button>
+    `;
+    
+    return card;
+}
+
+/**
+ * Update server info from database
+ */
+function updateServerInfoFromDatabase(serverInfo) {
+    // Update server IP if different
+    if (serverInfo.server_ip && serverInfo.server_ip !== CONFIG.SERVER_IP) {
+        CONFIG.SERVER_IP = serverInfo.server_ip;
+        
+        // Update IP display in UI
+        const ipButtons = document.querySelectorAll('[onclick*="copyServerIP"]');
+        ipButtons.forEach(button => {
+            if (button.textContent.includes('IP:')) {
+                button.innerHTML = `<i class="fas fa-server"></i> IP: ${CONFIG.SERVER_IP}`;
+            }
+        });
+    }
+    
+    // Update other server info in footer
+    const serverInfoElements = document.querySelectorAll('.contact-info p');
+    serverInfoElements.forEach(element => {
+        if (element.textContent.includes('fa-server') && serverInfo.server_ip) {
+            element.innerHTML = `<i class="fas fa-server"></i> ${serverInfo.server_ip}`;
+        }
+        if (element.textContent.includes('fa-envelope') && serverInfo.support_email) {
+            element.innerHTML = `<i class="fas fa-envelope"></i> ${serverInfo.support_email}`;
+        }
+    });
+}
+
+/**
+ * Update server stats from database
+ */
+function updateServerStatsFromDatabase(stats) {
+    // Update player count
+    if (elements.playerCount) {
+        elements.playerCount.textContent = stats.online_players || '-';
+    }
+    
+    if (elements.footerPlayerCount) {
+        elements.footerPlayerCount.textContent = stats.online_players || '-';
+    }
+    
+    // Update server status
+    if (elements.serverStatus) {
+        elements.serverStatus.className = `status-indicator ${stats.server_status || 'offline'}`;
+    }
+    
+    // Update global state
+    state.serverOnline = stats.server_status === 'online';
+    state.playerCount = stats.online_players || 0;
+}
+
+/**
+ * Update news from database
+ */
+function updateNewsFromDatabase(news) {
+    // Find news section or create if doesn't exist
+    let newsSection = document.querySelector('.news-section');
+    if (!newsSection && news.length > 0) {
+        newsSection = createNewsSection();
+        const heroSection = document.querySelector('.hero');
+        if (heroSection && heroSection.nextElementSibling) {
+            heroSection.parentNode.insertBefore(newsSection, heroSection.nextElementSibling);
+        }
+    }
+    
+    if (newsSection && news.length > 0) {
+        const newsContainer = newsSection.querySelector('.news-container');
+        if (newsContainer) {
+            newsContainer.innerHTML = '';
+            news.forEach(article => {
+                const newsCard = createNewsCard(article);
+                newsContainer.appendChild(newsCard);
+            });
+        }
+    }
+}
+
+/**
+ * Create news section
+ */
+function createNewsSection() {
+    const section = document.createElement('section');
+    section.className = 'news-section';
+    section.innerHTML = `
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-newspaper"></i> Новости сервера</h2>
+                <p>Последние обновления и события</p>
+            </div>
+            <div class="news-container"></div>
+        </div>
+    `;
+    return section;
+}
+
+/**
+ * Create news card
+ */
+function createNewsCard(article) {
+    const card = document.createElement('div');
+    card.className = 'news-card';
+    
+    const date = new Date(article.published_at).toLocaleDateString('ru-RU');
+    const categoryIcons = {
+        'update': 'fas fa-sync-alt',
+        'event': 'fas fa-calendar-star',
+        'announcement': 'fas fa-bullhorn',
+        'maintenance': 'fas fa-tools',
+        'other': 'fas fa-info-circle'
+    };
+    
+    card.innerHTML = `
+        <div class="news-header">
+            <div class="news-category">
+                <i class="${categoryIcons[article.category] || categoryIcons.other}"></i>
+                ${article.category}
+            </div>
+            <div class="news-date">${date}</div>
+        </div>
+        <h3>${article.title}</h3>
+        <p>${article.excerpt}</p>
+        <button class="btn btn-outline" onclick="showNewsModal('${article.id}')">
+            Читать далее
+        </button>
+    `;
+    
+    return card;
 }
 
 /**
