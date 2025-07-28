@@ -1,0 +1,88 @@
+{
+  "name": "17yotk MC Server - Донат Магазин",
+  "short_name": "17yotk Донат",
+  "description": "Официальный донат магазин сервера 17yotk MC Server. Получите уникальные привилегии и поддержите развитие сервера.",
+  "version": "2.0.0",
+  "start_url": "/donate.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0f0f23",
+  "background_color": "#0f0f23",
+  "categories": ["games", "entertainment"],
+  "lang": "ru",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "images/logo.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "Logo/favicon.ico",
+      "sizes": "16x16 32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "images/screenshot-mobile.png",
+      "sizes": "360x640",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Донат пакеты",
+      "short_name": "Привилегии",
+      "description": "Просмотр доступных донат пакетов",
+      "url": "/donate.html#packages",
+      "icons": [
+        {
+          "src": "images/logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Поддержка",
+      "short_name": "Помощь",
+      "description": "Связаться с поддержкой",
+      "url": "/donate.html#support",
+      "icons": [
+        {
+          "src": "images/logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  }
+}
