@@ -703,31 +703,64 @@ function focusField(fieldName) {
 }
 
 /**
- * Process payment based on selected method
+ * Process payment - send data to admin for manual processing
  */
 async function processPayment(formData) {
-    const { paymentMethod } = formData;
+    console.log('🔄 Processing payment...', formData);
+    
+    if (!state.selectedPackage) {
+        throw new Error('Пакет не выбран');
+    }
+    
+    const paymentData = {
+        player_name: formData.nickname,
+        package_name: state.selectedPackage.name,
+        package_price: state.selectedPackage.price,
+        payment_method: formData.paymentMethod || 'manual',
+        email: formData.email,
+        transaction_id: 'TXN_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+        timestamp: new Date().toISOString()
+    };
     
     try {
-        switch (paymentMethod) {
-            case 'card':
-                await processStripePayment(formData);
-                break;
-            case 'paypal':
-                await processPayPalPayment(formData);
-                break;
-            case 'sbp':
-                await processSBPPayment(formData);
-                break;
-            case 'crypto':
-                await processCryptoPayment(formData);
-                break;
-            default:
-                throw new Error(`Unsupported payment method: ${paymentMethod}`);
+        // Send to payment handler
+        const response = await fetch('/payment_handler.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(paymentData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            // Show success
+            showSuccessModal({
+                ...paymentData,
+                order_id: result.order_id,
+                message: result.message
+            });
+            
+            // Analytics
+            trackEvent('purchase_completed', {
+                package: state.selectedPackage.name,
+                price: state.selectedPackage.price,
+                payment_method: formData.paymentMethod,
+                order_id: result.order_id
+            });
+            
+            // Clear form
+            elements.donateForm.reset();
+            closePurchaseForm();
+            
+        } else {
+            throw new Error(result.error || 'Ошибка обработки платежа');
         }
+        
     } catch (error) {
         console.error('Payment processing error:', error);
-        throw error;
+        throw new Error('Ошибка отправки данных: ' + error.message);
     }
 }
 
@@ -935,18 +968,22 @@ async function handleSuccessfulPayment(formData, paymentDetails = null) {
  */
 function showSuccessModal(formData) {
     const modal = createModal({
-        title: '🎉 Платеж успешно обработан!',
+        title: '✅ Заказ принят!',
         content: `
             <div class="success-content">
                 <div class="success-icon">
                     <i class="fas fa-check-circle"></i>
                 </div>
                 <h3>Спасибо за покупку!</h3>
-                <p>Привилегии "${state.selectedPackage.name}" будут выданы игроку <strong>${formData.nickname}</strong> в течение 5 минут.</p>
+                <p class="success-message">${formData.message || 'Ваш заказ передан администратору для обработки.'}</p>
                 <div class="success-details">
                     <div class="detail">
+                        <i class="fas fa-receipt"></i>
+                        <span>Заказ: ${formData.order_id || 'Генерируется...'}</span>
+                    </div>
+                    <div class="detail">
                         <i class="fas fa-user"></i>
-                        <span>Игрок: ${formData.nickname}</span>
+                        <span>Игрок: ${formData.player_name}</span>
                     </div>
                     <div class="detail">
                         <i class="fas fa-envelope"></i>
@@ -954,12 +991,21 @@ function showSuccessModal(formData) {
                     </div>
                     <div class="detail">
                         <i class="fas fa-gem"></i>
-                        <span>Товар: ${state.selectedPackage.name}</span>
+                        <span>Товар: ${formData.package_name}</span>
                     </div>
                     <div class="detail">
                         <i class="fas fa-ruble-sign"></i>
-                        <span>Сумма: ${state.selectedPackage.price}₽</span>
+                        <span>Сумма: ${formData.package_price}₽</span>
                     </div>
+                </div>
+                <div class="success-info">
+                    <h4><i class="fas fa-info-circle"></i> Что дальше?</h4>
+                    <ul>
+                        <li>Администратор получил уведомление о покупке</li>
+                        <li>Привилегии будут выданы в течение 24 часов</li>
+                        <li>Вы получите подтверждение на email</li>
+                        <li>Вопросы: support@17yotk.ru</li>
+                    </ul>
                 </div>
                 <div class="success-actions">
                     <button class="btn btn-primary" onclick="copyServerIP()">

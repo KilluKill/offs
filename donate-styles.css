@@ -1642,6 +1642,49 @@ body {
     }
 }
 
+/* Success Modal Improvements */
+.success-message {
+    font-size: 1.1rem;
+    color: var(--success-color);
+    font-weight: 500;
+    margin-bottom: var(--space-4);
+}
+
+.success-info {
+    background: rgba(76, 175, 80, 0.1);
+    border-left: 4px solid var(--success-color);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-4);
+}
+
+.success-info h4 {
+    color: var(--success-color);
+    margin-bottom: var(--space-3);
+    font-size: 1rem;
+}
+
+.success-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.success-info li {
+    padding: var(--space-1) 0;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: var(--space-4);
+}
+
+.success-info li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--success-color);
+    font-weight: bold;
+}
+
 /* News Section */
 .news-section {
     padding: var(--space-20) 0;
