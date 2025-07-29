@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureVPN - Protect Your Privacy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>SecureVPN</h1>
+            </div>
+            <div class="status-indicator" id="statusIndicator">
+                <span class="status-dot disconnected"></span>
+                <span class="status-text">Disconnected</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="connection-panel">
+                <div class="current-status">
+                    <div class="ip-display">
+                        <h3>Your IP Address</h3>
+                        <div class="ip-address" id="currentIP">Loading...</div>
+                        <div class="location" id="currentLocation">Getting location...</div>
+                    </div>
+                    
+                    <div class="connection-button-container">
+                        <button class="connect-btn" id="connectBtn" onclick="toggleConnection()">
+                            <i class="fas fa-power-off"></i>
+                            <span>Connect</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="server-selection" id="serverSelection">
+                    <h3>Select VPN Server</h3>
+                    <div class="server-list" id="serverList">
+                        <!-- Servers will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="stats-panel" id="statsPanel" style="display: none;">
+                    <h3>Connection Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <i class="fas fa-upload"></i>
+                            <div class="stat-info">
+                                <span class="stat-label">Data Sent</span>
+                                <span class="stat-value" id="dataSent">0 MB</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-download"></i>
+                            <div class="stat-info">
+                                <span class="stat-label">Data Received</span>
+                                <span class="stat-value" id="dataReceived">0 MB</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <div class="stat-info">
+                                <span class="stat-label">Connected Time</span>
+                                <span class="stat-value" id="connectedTime">00:00:00</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-server"></i>
+                            <div class="stat-info">
+                                <span class="stat-label">Server</span>
+                                <span class="stat-value" id="connectedServer">None</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-panel">
+                <h3>Why Choose SecureVPN?</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-lock"></i>
+                        <h4>Military-Grade Encryption</h4>
+                        <p>AES-256 encryption protects your data</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-eye-slash"></i>
+                        <h4>No-Log Policy</h4>
+                        <p>We don't track or store your activity</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-globe"></i>
+                        <h4>Global Servers</h4>
+                        <p>Access content from anywhere</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-bolt"></i>
+                        <h4>Lightning Fast</h4>
+                        <p>Optimized for speed and performance</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Connecting to VPN...</p>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
