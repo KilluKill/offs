@@ -136,8 +136,16 @@ if ($connected && isset($_SESSION['server'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SecureVPN Pro - Ultimate Privacy Protection</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* Font icons using Unicode symbols instead of FontAwesome */
+        .fa-shield-alt:before { content: "🛡️"; }
+        .fa-globe:before { content: "🌍"; }
+        .fa-power-off:before { content: "⏻"; }
+        .fa-clock:before { content: "⏰"; }
+        .fa-shield-virus:before { content: "🔒"; }
+        .fa-user-secret:before { content: "👤"; }
+        .fa-bolt:before { content: "⚡"; }
+        .fa-globe-americas:before { content: "🌎"; }
         * {
             margin: 0;
             padding: 0;

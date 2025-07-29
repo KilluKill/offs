@@ -1,19 +1,7 @@
-nohup: ignoring input
- * Serving Flask app 'app'
- * Debug mode: on
-[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on all addresses (0.0.0.0)
- * Running on http://127.0.0.1:5000
- * Running on http://172.30.0.2:5000
-[33mPress CTRL+C to quit[0m
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 936-697-608
-127.0.0.1 - - [29/Jul/2025 13:39:11] "GET /api/status HTTP/1.1" 200 -
-127.0.0.1 - - [29/Jul/2025 13:39:14] "GET /api/servers HTTP/1.1" 200 -
-127.0.0.1 - - [29/Jul/2025 13:39:17] "GET / HTTP/1.1" 200 -
-127.0.0.1 - - [29/Jul/2025 13:39:44] "POST /api/connect HTTP/1.1" 200 -
-127.0.0.1 - - [29/Jul/2025 13:39:52] "GET /api/status HTTP/1.1" 200 -
-127.0.0.1 - - [29/Jul/2025 13:39:55] "GET /api/stats HTTP/1.1" 200 -
-127.0.0.1 - - [29/Jul/2025 13:39:58] "POST /api/disconnect HTTP/1.1" 200 -
-127.0.0.1 - - [29/Jul/2025 13:40:03] "GET /api/status HTTP/1.1" 200 -
+[Tue Jul 29 14:13:42 2025] PHP 8.4.5 Development Server (http://localhost:8000) started
+[Tue Jul 29 14:13:45 2025] [::1]:58290 Accepted
+[Tue Jul 29 14:13:45 2025] [::1]:58290 Closing
+[Tue Jul 29 14:13:49 2025] [::1]:58306 Accepted
+[Tue Jul 29 14:13:49 2025] [::1]:58306 Closing
+[Tue Jul 29 14:13:55 2025] [::1]:46534 Accepted
+[Tue Jul 29 14:13:55 2025] [::1]:46534 Closing
