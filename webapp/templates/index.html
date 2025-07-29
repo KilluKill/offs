@@ -3,16 +3,511 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SecureVPN - Protect Your Privacy</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="/static/style.css" rel="stylesheet">
+    <title>SecureVPN Pro - Ultimate Privacy Protection</title>
+    <style>
+        /* Font icons using Unicode symbols */
+        .fa-shield-alt:before { content: "🛡️"; }
+        .fa-globe:before { content: "🌍"; }
+        .fa-power-off:before { content: "⏻"; }
+        .fa-clock:before { content: "⏰"; }
+        .fa-shield-virus:before { content: "🔒"; }
+        .fa-user-secret:before { content: "👤"; }
+        .fa-bolt:before { content: "⚡"; }
+        .fa-globe-americas:before { content: "🌎"; }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d2d5f 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00ff88;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.connected { background: #00ff88; }
+        .status-dot.disconnected { background: #ff4757; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .vpn-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .current-location {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .location-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .country-flag {
+            font-size: 3rem;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .location-details h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #00ff88;
+        }
+
+        .location-details p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .ip-display {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .ip-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        .ip-address {
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #00ccff;
+        }
+
+        .connect-button {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #ff4757, #ff3838);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 30px rgba(255, 71, 87, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .connect-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(255, 71, 87, 0.6);
+        }
+
+        .connect-button.connected {
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        .connect-button.connected:hover {
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.6);
+        }
+
+        .connect-button i {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00ff88;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .server-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .server-list h3 {
+            margin-bottom: 1.5rem;
+            color: #00ff88;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .server-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .server-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00ff88;
+            transform: translateX(5px);
+        }
+
+        .server-item.selected {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: #00ff88;
+        }
+
+        .server-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .server-flag {
+            font-size: 2rem;
+        }
+
+        .server-details h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: white;
+        }
+
+        .server-details p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .server-stats {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+
+        .ping {
+            font-size: 0.9rem;
+            color: #00ccff;
+            font-weight: 600;
+        }
+
+        .load-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .load-bar {
+            width: 40px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .load-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .load-low { background: #00ff88; }
+        .load-medium { background: #ffa502; }
+        .load-high { background: #ff4757; }
+
+        .world-map {
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500"><rect width="1000" height="500" fill="%23001122"/><circle cx="200" cy="150" r="3" fill="%2300ff88"/><circle cx="800" cy="200" r="3" fill="%2300ccff"/><circle cx="500" cy="180" r="3" fill="%23ffa502"/><circle cx="150" cy="300" r="3" fill="%23ff4757"/><circle cx="750" cy="350" r="3" fill="%2300ff88"/></svg>') center/cover;
+            height: 200px;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .connection-time {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: #00ccff;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+            grid-column: 1 / -1;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-item i {
+            font-size: 2.5rem;
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h4 {
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .feature-item p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+            
+            .connect-button {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        .loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            margin: -15px 0 0 -15px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Container and old class compatibility */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .connection-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        .connect-btn {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #ff4757, #ff3838);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 30px rgba(255, 71, 87, 0.4);
+        }
+
+        .connect-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .connect-btn.connected {
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        .connect-btn i {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .server-selection {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .server-selection h3 {
+            color: #00ff88;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            margin-top: 2rem;
+        }
+
+        .stats-panel h3 {
+            color: #00ff88;
+            margin-bottom: 1.5rem;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <header>
             <div class="logo">
                 <i class="fas fa-shield-alt"></i>
-                <h1>SecureVPN</h1>
+                <h1>SecureVPN Pro</h1>
             </div>
             <div class="status-indicator" id="statusIndicator">
                 <span class="status-dot disconnected"></span>
@@ -38,7 +533,7 @@
                 </div>
 
                 <div class="server-selection" id="serverSelection">
-                    <h3>Select VPN Server</h3>
+                    <h3><i class="fas fa-globe"></i> Select VPN Server</h3>
                     <div class="server-list" id="serverList">
                         <!-- Servers will be loaded here -->
                     </div>
@@ -48,72 +543,301 @@
                     <h3>Connection Statistics</h3>
                     <div class="stats-grid">
                         <div class="stat-item">
-                            <i class="fas fa-upload"></i>
-                            <div class="stat-info">
-                                <span class="stat-label">Data Sent</span>
-                                <span class="stat-value" id="dataSent">0 MB</span>
-                            </div>
+                            <div class="stat-value" id="downloadSpeed">0 MB/s</div>
+                            <div class="stat-label">Download</div>
                         </div>
                         <div class="stat-item">
-                            <i class="fas fa-download"></i>
-                            <div class="stat-info">
-                                <span class="stat-label">Data Received</span>
-                                <span class="stat-value" id="dataReceived">0 MB</span>
-                            </div>
+                            <div class="stat-value" id="uploadSpeed">0 MB/s</div>
+                            <div class="stat-label">Upload</div>
                         </div>
                         <div class="stat-item">
-                            <i class="fas fa-clock"></i>
-                            <div class="stat-info">
-                                <span class="stat-label">Connected Time</span>
-                                <span class="stat-value" id="connectedTime">00:00:00</span>
-                            </div>
+                            <div class="stat-value" id="dataUsed">0 GB</div>
+                            <div class="stat-label">Data Used</div>
                         </div>
                         <div class="stat-item">
-                            <i class="fas fa-server"></i>
-                            <div class="stat-info">
-                                <span class="stat-label">Server</span>
-                                <span class="stat-value" id="connectedServer">None</span>
-                            </div>
+                            <div class="stat-value" id="serverLoad">0%</div>
+                            <div class="stat-label">Server Load</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="features-panel">
-                <h3>Why Choose SecureVPN?</h3>
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <i class="fas fa-lock"></i>
-                        <h4>Military-Grade Encryption</h4>
-                        <p>AES-256 encryption protects your data</p>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-eye-slash"></i>
-                        <h4>No-Log Policy</h4>
-                        <p>We don't track or store your activity</p>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-globe"></i>
-                        <h4>Global Servers</h4>
-                        <p>Access content from anywhere</p>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-bolt"></i>
-                        <h4>Lightning Fast</h4>
-                        <p>Optimized for speed and performance</p>
-                    </div>
+            <div class="features">
+                <div class="feature-item">
+                    <i class="fas fa-shield-virus"></i>
+                    <h4>Military-Grade Encryption</h4>
+                    <p>AES-256 encryption protects your data from hackers and surveillance</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-user-secret"></i>
+                    <h4>No-Log Policy</h4>
+                    <p>We don't track, collect, or store your online activity</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Lightning Fast</h4>
+                    <p>Optimized servers for maximum speed and performance</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-globe-americas"></i>
+                    <h4>Global Network</h4>
+                    <p>Access content from anywhere with our worldwide server network</p>
                 </div>
             </div>
         </main>
     </div>
 
-    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
-        <div class="loading-spinner">
-            <i class="fas fa-spinner fa-spin"></i>
-            <p>Connecting to VPN...</p>
-        </div>
-    </div>
+    <script>
+        // VPN Web App JavaScript
+        class VPNApp {
+            constructor() {
+                this.isConnected = false;
+                this.selectedServer = null;
+                this.connectionTimer = null;
+                this.statsTimer = null;
+                this.connectStartTime = null;
+                
+                this.init();
+            }
 
-    <script src="/static/app.js"></script>
+            init() {
+                this.loadServers();
+                this.updateStatus();
+                this.startStatusPolling();
+            }
+
+            async loadServers() {
+                try {
+                    const response = await fetch('/api/servers');
+                    const servers = await response.json();
+                    this.renderServers(servers);
+                } catch (error) {
+                    console.error('Failed to load servers:', error);
+                    // Mock servers for demo
+                    this.renderServers([
+                        {id: 1, name: 'US East', location: 'New York', ping: 45, load: 23},
+                        {id: 2, name: 'US West', location: 'Los Angeles', ping: 32, load: 67},
+                        {id: 3, name: 'Europe', location: 'London', ping: 78, load: 34},
+                        {id: 4, name: 'Asia', location: 'Tokyo', ping: 123, load: 56},
+                        {id: 5, name: 'Canada', location: 'Toronto', ping: 56, load: 12}
+                    ]);
+                }
+            }
+
+            renderServers(servers) {
+                const serverList = document.getElementById('serverList');
+                if (!serverList) return;
+                
+                serverList.innerHTML = '';
+
+                servers.forEach(server => {
+                    const serverElement = document.createElement('div');
+                    serverElement.className = 'server-item';
+                    serverElement.dataset.serverId = server.id;
+                    
+                    const loadClass = server.load < 50 ? 'load-low' : 
+                                    server.load < 80 ? 'load-medium' : 'load-high';
+                    
+                    serverElement.innerHTML = `
+                        <div class="server-info">
+                            <div class="server-flag">🌐</div>
+                            <div class="server-details">
+                                <h4>${server.name}</h4>
+                                <p>${server.location}</p>
+                            </div>
+                        </div>
+                        <div class="server-stats">
+                            <div class="ping">${server.ping}ms</div>
+                            <div class="load-indicator">
+                                <div class="load-bar">
+                                    <div class="load-fill ${loadClass}" style="width: ${server.load}%"></div>
+                                </div>
+                                <span>${server.load}%</span>
+                            </div>
+                        </div>
+                    `;
+                    
+                    serverElement.addEventListener('click', () => this.selectServer(server));
+                    serverList.appendChild(serverElement);
+                });
+            }
+
+            selectServer(server) {
+                if (this.isConnected) return;
+                
+                this.selectedServer = server;
+                
+                // Update UI
+                document.querySelectorAll('.server-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                
+                const selectedElement = document.querySelector(`[data-server-id="${server.id}"]`);
+                if (selectedElement) {
+                    selectedElement.classList.add('selected');
+                }
+            }
+
+            async updateStatus() {
+                try {
+                    const response = await fetch('/api/status');
+                    const status = await response.json();
+                    
+                    this.isConnected = status.connected;
+                    this.updateUI(status);
+                } catch (error) {
+                    console.error('Failed to update status:', error);
+                }
+            }
+
+            updateUI(status) {
+                const connectBtn = document.getElementById('connectBtn');
+                const statusIndicator = document.getElementById('statusIndicator');
+                const currentIP = document.getElementById('currentIP');
+                const currentLocation = document.getElementById('currentLocation');
+                
+                if (connectBtn) {
+                    connectBtn.className = `connect-btn ${this.isConnected ? 'connected' : ''}`;
+                    connectBtn.innerHTML = `
+                        <i class="fas fa-power-off"></i>
+                        <span>${this.isConnected ? 'Disconnect' : 'Connect'}</span>
+                    `;
+                }
+                
+                if (statusIndicator) {
+                    const dot = statusIndicator.querySelector('.status-dot');
+                    const text = statusIndicator.querySelector('.status-text');
+                    
+                    if (dot) {
+                        dot.className = `status-dot ${this.isConnected ? 'connected' : 'disconnected'}`;
+                    }
+                    if (text) {
+                        text.textContent = this.isConnected ? 'Protected' : 'Unprotected';
+                    }
+                }
+                
+                if (currentIP) {
+                    currentIP.textContent = status.ip || 'Loading...';
+                }
+                
+                if (currentLocation) {
+                    currentLocation.textContent = status.location || 'Getting location...';
+                }
+                
+                // Show/hide stats panel
+                const statsPanel = document.getElementById('statsPanel');
+                if (statsPanel) {
+                    statsPanel.style.display = this.isConnected ? 'block' : 'none';
+                }
+                
+                if (this.isConnected && !this.statsTimer) {
+                    this.startStatsUpdate();
+                } else if (!this.isConnected && this.statsTimer) {
+                    this.stopStatsUpdate();
+                }
+            }
+
+            startStatusPolling() {
+                setInterval(() => {
+                    this.updateStatus();
+                }, 5000);
+            }
+
+            startStatsUpdate() {
+                this.statsTimer = setInterval(() => {
+                    this.updateStats();
+                }, 2000);
+            }
+
+            stopStatsUpdate() {
+                if (this.statsTimer) {
+                    clearInterval(this.statsTimer);
+                    this.statsTimer = null;
+                }
+            }
+
+            updateStats() {
+                // Simulate real-time stats
+                const downloadSpeed = document.getElementById('downloadSpeed');
+                const uploadSpeed = document.getElementById('uploadSpeed');
+                const dataUsed = document.getElementById('dataUsed');
+                const serverLoad = document.getElementById('serverLoad');
+                
+                if (downloadSpeed) {
+                    downloadSpeed.textContent = (Math.random() * 50 + 10).toFixed(1) + ' MB/s';
+                }
+                if (uploadSpeed) {
+                    uploadSpeed.textContent = (Math.random() * 20 + 5).toFixed(1) + ' MB/s';
+                }
+                if (dataUsed) {
+                    dataUsed.textContent = (Math.random() * 5 + 1).toFixed(2) + ' GB';
+                }
+                if (serverLoad) {
+                    serverLoad.textContent = (Math.random() * 30 + 20).toFixed(0) + '%';
+                }
+            }
+        }
+
+        // Global function for button onclick
+        async function toggleConnection() {
+            const app = window.vpnApp;
+            
+            if (app.isConnected) {
+                // Disconnect
+                try {
+                    const response = await fetch('/api/disconnect', {
+                        method: 'POST'
+                    });
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        app.isConnected = false;
+                        app.updateUI({connected: false});
+                        console.log('Disconnected successfully');
+                    }
+                } catch (error) {
+                    console.error('Failed to disconnect:', error);
+                }
+            } else {
+                // Connect
+                if (!app.selectedServer) {
+                    alert('Please select a server first!');
+                    return;
+                }
+                
+                try {
+                    const response = await fetch('/api/connect', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            server_id: app.selectedServer.id
+                        })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        app.isConnected = true;
+                        app.connectStartTime = Date.now();
+                        app.updateUI({
+                            connected: true,
+                            ip: '192.168.1.100',
+                            location: app.selectedServer.location
+                        });
+                        console.log('Connected successfully');
+                    }
+                } catch (error) {
+                    console.error('Failed to connect:', error);
+                }
+            }
+        }
+
+        // Initialize app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.vpnApp = new VPNApp();
+        });
+    </script>
 </body>
 </html>
